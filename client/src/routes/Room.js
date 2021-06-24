@@ -31,12 +31,6 @@ const Video = (props) => {
     );
 }
 
-
-const videoConstraints = {
-    height: window.innerHeight / 2,
-    width: window.innerWidth / 2
-};
-
 const Room = (props) => {
     const [peers, setPeers] = useState([]);
     const socketRef = useRef();
@@ -46,7 +40,7 @@ const Room = (props) => {
 
     useEffect(() => {
         socketRef.current = io.connect("/");
-        navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
             socketRef.current.emit("join room", roomID);
             socketRef.current.on("all users", users => {
@@ -131,6 +125,25 @@ const Room = (props) => {
         props.history.push("/");
     }
 
+    function switchAudio() {
+        let enabled = userVideo.current.srcObject.getAudioTracks()[0].enabled;
+        if (enabled) {
+            userVideo.current.srcObject.getAudioTracks()[0].enabled = false;
+        } else {
+            userVideo.current.srcObject.getAudioTracks()[0].enabled = true;
+        }
+
+    }
+
+    function switchVideo() {
+        let enabled = userVideo.current.srcObject.getVideoTracks()[0].enabled;
+        if (enabled) {
+            userVideo.current.srcObject.getVideoTracks()[0].enabled = false;
+        } else {
+            userVideo.current.srcObject.getVideoTracks()[0].enabled = true;
+        }
+    }
+
     return (
         <Container>
             <StyledVideo muted ref={userVideo} autoPlay playsInline />
@@ -141,6 +154,8 @@ const Room = (props) => {
                 );
             })}
             <button onClick={leaveRoom}>Leave meeting</button>
+            <button onClick={switchAudio}>Mute/Unmute</button>
+            <button onClick={switchVideo}>Video on/off</button>
         </Container>
     );
 };

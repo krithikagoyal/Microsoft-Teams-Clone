@@ -126,6 +126,11 @@ const Room = (props) => {
         return peer;
     }
 
+    function leaveRoom() {
+        socketRef.current.emit("user clicked leave meeting", socketRef.current.id);
+        props.history.push("/");
+    }
+
     return (
         <Container>
             <StyledVideo muted ref={userVideo} autoPlay playsInline />
@@ -135,6 +140,7 @@ const Room = (props) => {
                     <Video key={peer.peerID} peer={peer.peer} />
                 );
             })}
+            <button onClick={leaveRoom}>Leave meeting</button>
         </Container>
     );
 };

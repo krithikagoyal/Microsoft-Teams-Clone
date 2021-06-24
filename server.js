@@ -10,6 +10,16 @@ const users = {};
 
 const socketToRoom = {};
 
+function leaveRoom(socket, userId) {
+    const roomID = socketToRoom[userId];
+    let room = users[roomID];
+    if (room) {
+        room = room.filter(id => id !== userId);
+        users[roomID] = room;
+    }
+    socket.broadcast.emit('user left', userId);
+}
+
 io.on('connection', socket => {
     socket.on("join room", roomID => {
         if (users[roomID]) {
@@ -37,17 +47,13 @@ io.on('connection', socket => {
     });
 
     socket.on("disconnect", () => {
-        const roomID = socketToRoom[socket.id];
-        let room = users[roomID];
-        if (room) {
-            room = room.filter(id => id !== socket.id);
-            users[roomID] = room;
-        }
-        socket.broadcast.emit('user left', socket.id);
+        leaveRoom(socket, socket.id);
+    });
+
+    socket.on("user clicked leave meeting", userId => {
+        leaveRoom(socket, userId);
     });
 
 });
 
 server.listen(process.env.PORT || 8000, () => console.log('server is running on port 8000'));
-
-

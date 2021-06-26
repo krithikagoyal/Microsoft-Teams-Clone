@@ -14,9 +14,15 @@ const Container = styled.div`
 `;
 
 const StyledVideo = styled.video`
+    height: 10%;
+    width: 20%;
+`;
+
+const StyledVideoBig = styled.video`
     height: 40%;
     width: 50%;
 `;
+
 
 const Video = (props) => {
     const ref = useRef();
@@ -29,7 +35,7 @@ const Video = (props) => {
 
     return (
         <div>
-            <StyledVideo playsInline autoPlay ref={ref} />
+            <StyledVideoBig playsInline autoPlay ref={ref} />
             <p>{props.username}</p>
         </div>
     );
@@ -164,7 +170,8 @@ const Room = (props) => {
 
     return (
         <div>
-            {formState ? <Form>
+
+            {formState ? (<Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Enter your username:</Form.Label>
                     <Form.Control type="name" placeholder="Enter username" onChange={e => changeName(e.target.value)} />
@@ -175,10 +182,9 @@ const Room = (props) => {
                 <Button variant="primary" onClick={hideForm}>
                     Submit
                 </Button>
-            </Form> : null}
-            <Container>
+                <StyledVideoBig muted ref={userVideo} autoPlay playsInline />
+            </Form>) : (<Container>
                 <StyledVideo muted ref={userVideo} autoPlay playsInline />
-                <p>{myUsername}</p>
                 {peers.map((peer) => {
                     return (
                         <Video key={peer.peerID} peer={peer.peer} username={peer.username} />
@@ -187,7 +193,7 @@ const Room = (props) => {
                 <button onClick={leaveRoom}>Leave meeting</button>
                 <button onClick={switchAudio}>Mute/Unmute</button>
                 <button onClick={switchVideo}>Video on/off</button>
-            </Container>
+            </Container>)}
         </div>
     );
 };

@@ -22,7 +22,6 @@ function leaveRoom(socket, userId) {
 
 io.on('connection', socket => {
     socket.on("join room", payload => {
-        console.log(payload.myUsername);
         if (users[payload.roomID]) {
             const length = users[payload.roomID].length;
             if (length === 4) {
@@ -40,7 +39,6 @@ io.on('connection', socket => {
     });
 
     socket.on("sending signal", payload => {
-        console.log("sending signal", payload.username);
         io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID, username: payload.username });
     });
 

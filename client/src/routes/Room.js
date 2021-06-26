@@ -76,7 +76,6 @@ const Room = (props) => {
                     username: payload.username,
                     peer,
                 }];
-                console.log("user joined", payload.username);
 
                 peersRef.current = peers;
 
@@ -110,9 +109,7 @@ const Room = (props) => {
         });
 
         peer.on("signal", signal => {
-            console.log("signal", myUsernameRef.current);
             const username = myUsernameRef.current;
-            console.log("username tttt", username);
             socketRef.current.emit("sending signal", { userToSignal, callerID, username, signal })
         })
 
@@ -161,7 +158,6 @@ const Room = (props) => {
 
     function hideForm() {
         setState(false);
-        console.log(myUsername);
         myUsernameRef.current = myUsername;
         socketRef.current.emit("join room", { roomID, myUsername });
     }

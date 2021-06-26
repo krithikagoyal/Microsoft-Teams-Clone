@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
+import { Button, Form } from 'react-bootstrap';
 
 const Container = styled.div`
     padding: 20px;
@@ -27,32 +28,41 @@ const Video = (props) => {
     }, []);
 
     return (
-        <StyledVideo playsInline autoPlay ref={ref} />
+        <div>
+            <StyledVideo playsInline autoPlay ref={ref} />
+            <p>{props.username}</p>
+        </div>
     );
 }
 
 const Room = (props) => {
     const [peers, setPeers] = useState([]);
+    const [myUsername, changeName] = useState("Anonymous user");
+    const [formState, setState] = useState(true);
     const socketRef = useRef();
     const userVideo = useRef();
     const peersRef = useRef([]);
+    const myUsernameRef = useRef();
     const roomID = props.match.params.roomID;
+
 
     useEffect(() => {
         socketRef.current = io.connect("/");
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
-            socketRef.current.emit("join room", roomID);
+
             socketRef.current.on("all users", users => {
                 const peers = [];
-                users.forEach(userID => {
-                    const peer = createPeer(userID, socketRef.current.id, stream);
+                users.forEach(user => {
+                    const peer = createPeer(user.id, socketRef.current.id, stream);
                     peersRef.current.push({
-                        peerID: userID,
+                        peerID: user.id,
+                        username: user.username,
                         peer,
                     })
                     peers.push({
-                        peerID: userID,
+                        peerID: user.id,
+                        username: user.username,
                         peer,
                     });
                 })
@@ -63,8 +73,10 @@ const Room = (props) => {
                 const peer = addPeer(payload.signal, payload.callerID, stream);
                 const peers = [...peersRef.current, {
                     peerID: payload.callerID,
+                    username: payload.username,
                     peer,
                 }];
+                console.log("user joined", payload.username);
 
                 peersRef.current = peers;
 
@@ -98,7 +110,10 @@ const Room = (props) => {
         });
 
         peer.on("signal", signal => {
-            socketRef.current.emit("sending signal", { userToSignal, callerID, signal })
+            console.log("signal", myUsernameRef.current);
+            const username = myUsernameRef.current;
+            console.log("username tttt", username);
+            socketRef.current.emit("sending signal", { userToSignal, callerID, username, signal })
         })
 
         return peer;
@@ -144,19 +159,40 @@ const Room = (props) => {
         }
     }
 
+    function hideForm() {
+        setState(false);
+        console.log(myUsername);
+        myUsernameRef.current = myUsername;
+        socketRef.current.emit("join room", { roomID, myUsername });
+    }
+
     return (
-        <Container>
-            <StyledVideo muted ref={userVideo} autoPlay playsInline />
-            {peers.map((peer) => {
-                { console.log(peers.length, peer.peerID) }
-                return (
-                    <Video key={peer.peerID} peer={peer.peer} />
-                );
-            })}
-            <button onClick={leaveRoom}>Leave meeting</button>
-            <button onClick={switchAudio}>Mute/Unmute</button>
-            <button onClick={switchVideo}>Video on/off</button>
-        </Container>
+        <div>
+            {formState ? <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Enter your username:</Form.Label>
+                    <Form.Control type="name" placeholder="Enter username" onChange={e => changeName(e.target.value)} />
+                    <Form.Text className="text-muted">
+                        This is what other users will see.
+                    </Form.Text>
+                </Form.Group>
+                <Button variant="primary" onClick={hideForm}>
+                    Submit
+                </Button>
+            </Form> : null}
+            <Container>
+                <StyledVideo muted ref={userVideo} autoPlay playsInline />
+                <p>{myUsername}</p>
+                {peers.map((peer) => {
+                    return (
+                        <Video key={peer.peerID} peer={peer.peer} username={peer.username} />
+                    );
+                })}
+                <button onClick={leaveRoom}>Leave meeting</button>
+                <button onClick={switchAudio}>Mute/Unmute</button>
+                <button onClick={switchVideo}>Video on/off</button>
+            </Container>
+        </div>
     );
 };
 

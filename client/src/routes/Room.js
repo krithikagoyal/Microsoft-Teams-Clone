@@ -53,7 +53,7 @@ const Room = (props) => {
             userVideo.current.srcObject = stream;
 
             socketRef.current.on("all users", users => {
-                const peers = [];
+                const newPeers = [];
                 users.forEach(user => {
                     const peer = createPeer(user.id, socketRef.current.id, stream);
                     peersRef.current.push({
@@ -61,26 +61,26 @@ const Room = (props) => {
                         username: user.username,
                         peer,
                     })
-                    peers.push({
+                    newPeers.push({
                         peerID: user.id,
                         username: user.username,
                         peer,
                     });
                 })
-                setPeers(peers);
+                setPeers(newPeers);
             })
 
             socketRef.current.on("user joined", payload => {
                 const peer = addPeer(payload.signal, payload.callerID, stream);
-                const peers = [...peersRef.current, {
+                const newPeers = [...peersRef.current, {
                     peerID: payload.callerID,
                     username: payload.username,
                     peer,
                 }];
 
-                peersRef.current = peers;
+                peersRef.current = newPeers;
 
-                setPeers(peers);
+                setPeers(newPeers);
             });
 
             socketRef.current.on("receiving returned signal", payload => {
@@ -90,14 +90,14 @@ const Room = (props) => {
 
             socketRef.current.on("user left", id => {
                 const peerObj = peersRef.current.find(p => p.peerID === id);
-                const peers = peersRef.current.filter(p => p.peerID !== id);
+                const newPeers = peersRef.current.filter(p => p.peerID !== id);
 
                 if (peerObj) {
                     peerObj.peer.destroy();
                 }
 
-                peersRef.current = peers;
-                setPeers(peers);
+                peersRef.current = newPeers;
+                setPeers(newPeers);
             })
         })
     }, []);

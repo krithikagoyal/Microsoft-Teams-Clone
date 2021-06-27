@@ -3,8 +3,8 @@ const express = require("express");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
-const socket = require("socket.io");
-const io = socket(server);
+const socketio = require("socket.io");
+const io = socketio(server);
 
 const users = {};
 
@@ -15,7 +15,7 @@ function leaveRoom(socket, userId) {
     let room = users[roomID];
     if (room) {
         room = room.filter(user => user.id !== userId);
-        users[roomID] = room; 6
+        users[roomID] = room;
     }
     socket.broadcast.emit('user left', userId);
 }

@@ -15,7 +15,7 @@ function leaveRoom(socket, userId) {
     let room = users[roomID];
     if (room) {
         room = room.filter(user => user.id !== userId);
-        users[roomID] = room;
+        users[roomID] = room;6
     }
     socket.broadcast.emit('user left', userId);
 }

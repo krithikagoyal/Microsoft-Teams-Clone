@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
 import { Button, Form } from 'react-bootstrap';
+import Chat from '../Chat';
 
 const Container = styled.div`
     padding: 20px;
@@ -50,7 +51,6 @@ const Room = (props) => {
     const peersRef = useRef([]);
     const myUsernameRef = useRef();
     const roomID = props.match.params.roomID;
-
 
     useEffect(() => {
         socketRef.current = io.connect("/");
@@ -193,6 +193,7 @@ const Room = (props) => {
                 <button onClick={leaveRoom}>Leave meeting</button>
                 <button onClick={switchAudio}>Mute/Unmute</button>
                 <button onClick={switchVideo}>Video on/off</button>
+                <Chat />
             </Container>)}
         </div>
     );

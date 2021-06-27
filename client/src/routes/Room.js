@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
 import { Button, Form } from 'react-bootstrap';
-import Chat from '../Chat';
+import Navbar from '../Chat/Navbar';
 
 const Container = styled.div`
     padding: 20px;
@@ -12,11 +12,6 @@ const Container = styled.div`
     width: 90%;
     margin: auto;
     flex-wrap: wrap;
-`;
-
-const StyledVideo = styled.video`
-    height: 10%;
-    width: 20%;
 `;
 
 const StyledVideoBig = styled.video`
@@ -170,7 +165,7 @@ const Room = (props) => {
 
     return (
         <div>
-
+            <StyledVideoBig muted ref={userVideo} autoPlay playsInline />
             {formState ? (<Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Enter your username:</Form.Label>
@@ -182,9 +177,7 @@ const Room = (props) => {
                 <Button variant="primary" onClick={hideForm}>
                     Submit
                 </Button>
-                <StyledVideoBig muted ref={userVideo} autoPlay playsInline />
             </Form>) : (<Container>
-                <StyledVideo muted ref={userVideo} autoPlay playsInline />
                 {peers.map((peer) => {
                     return (
                         <Video key={peer.peerID} peer={peer.peer} username={peer.username} />
@@ -193,7 +186,7 @@ const Room = (props) => {
                 <button onClick={leaveRoom}>Leave meeting</button>
                 <button onClick={switchAudio}>Mute/Unmute</button>
                 <button onClick={switchVideo}>Video on/off</button>
-                <Chat />
+                <Navbar socketRef={socketRef} username={myUsername} />
             </Container>)}
         </div>
     );

@@ -15,7 +15,7 @@ function leaveRoom(socket, userId) {
     let room = users[roomID];
     if (room) {
         room = room.filter(user => user.id !== userId);
-        users[roomID] = room;6
+        users[roomID] = room; 6
     }
     socket.broadcast.emit('user left', userId);
 }
@@ -52,6 +52,10 @@ io.on('connection', socket => {
 
     socket.on("user clicked leave meeting", userId => {
         leaveRoom(socket, userId);
+    });
+
+    socket.on('send message', payload => {
+        io.emit('receive message', { username: payload.username, message: payload.message });
     });
 
 });

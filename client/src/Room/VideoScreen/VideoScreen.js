@@ -192,4 +192,4 @@ const Room = (props) => {
     );
 };
 
-export default Room;
+export default VideoScreen;

@@ -18,9 +18,9 @@ body {
 
 .side-video {
     height: 18%;
-    width: 28%;
+    width: auto;
     position: fixed;
-    margin-left: 80vw;
-    margin-top: 1vh;
+    margin-left: 87vw;
+    margin-top: 3vh;
     z-index: 10;
 }

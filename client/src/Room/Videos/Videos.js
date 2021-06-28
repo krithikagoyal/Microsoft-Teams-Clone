@@ -1,20 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
-
-const StyledVideo = styled.video`
-    height: 30%;
-    width: 40%;
-`;
-
-const Container = styled.div`
-    padding: 20px;
-    display: flex;
-    height: 100vh;
-    width: 90%;
-    margin: auto;
-    flex-wrap: wrap;
-`;
-
+import './Videos.css';
 
 const Video = (props) => {
     const ref = useRef();
@@ -26,8 +11,8 @@ const Video = (props) => {
     }, []);
 
     return (
-        <div>
-            <StyledVideo playsInline autoPlay ref={ref} />
+        <div className="video-container">
+            <video playsInline autoPlay ref={ref} className="display-video"/>
             <p>{props.username}</p>
         </div>
     );
@@ -36,13 +21,13 @@ const Video = (props) => {
 
 function Videos(props) {
     return (
-        <Container>
+        <div className="Container">
             {props.peers.map((peer) => {
                 return (
                     <Video key={peer.peerID} peer={peer.peer} username={peer.username} />
                 );
             })}
-        </Container>
+        </div>
     )
 }
 

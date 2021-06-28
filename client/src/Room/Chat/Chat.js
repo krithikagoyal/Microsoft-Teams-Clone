@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './Chat.css';
 import SendMessageForm from './SendMessageForm';
 
 function Chat(props) {
 
     const [messages, addMessage] = useState([]);
+    const ref = useRef(null);
+
+    function scrollToBottom() {
+        ref.current.scrollIntoView({ behavior: "smooth" });
+    }
 
     useEffect(() => {
 
         props.socketRef.current.on('receive message', payload => {
             addMessage([...messages, { senderId: payload.username, text: payload.message }]);
+            scrollToBottom();
         });
 
         return () => {
@@ -33,6 +39,9 @@ function Chat(props) {
                         </li>
                     )
                 })}
+                <div className="message" id="content"
+                    ref={ref}>
+                </div>
             </ul>
             <SendMessageForm socketRef={props.socketRef} username={props.username} />
         </div>

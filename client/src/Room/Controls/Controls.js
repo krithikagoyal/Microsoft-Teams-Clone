@@ -34,8 +34,8 @@ function Controls(props) {
             <button className="leave-room" onClick={props.leaveRoom}>Leave meeting</button>
             <button className="switch-audio" onClick={switchAudio}>Mute/Unmute</button>
             <button className="switch-video" onClick={switchVideo}>Video on/off</button>
-            <button className="show-chat" onClick={visibility}>Chat</button>
-            <Navbar socketRef={props.socketRef} username={props.myUsername} chat={showChat}/>
+            {props.formState ? null : <button className="show-chat" onClick={visibility}>Chat</button>}
+            {props.formState ? null : <Navbar socketRef={props.socketRef} username={props.myUsername} chat={showChat} />}
         </div>
     )
 }

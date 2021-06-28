@@ -5,9 +5,7 @@ import styled from "styled-components";
 import InputName from '../InputName/InputName'
 import Videos from '../Videos/Videos'
 import Controls from '../Controls/Controls'
-import { Container } from "react-bootstrap";
 import './Home.css';
-
 
 const MyVideo = styled.video`
     height: 18%;
@@ -129,10 +127,8 @@ function Home(props) {
         <>
             <MyVideo muted ref={userVideo} autoPlay playsInline />
             {formState ? <InputName hideForm={hideForm} changeName={changeName} /> :
-                <Container>
-                    <Videos peers={peers} />
-                    <Controls leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={myUsername} />
-                </Container>}
+                <Videos peers={peers} />}
+            <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={myUsername} />
         </>
     );
 }

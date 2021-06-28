@@ -1,5 +1,33 @@
 div.controls {
-    position: absolute;
+    position: fixed;
     margin-top: -10vh;
     padding-top: 0;
+    display: flex;
+    z-index: 20;
+    margin-left: 38%;
+}
+
+div.controls-form {
+    position: absolute;
+    margin-bottom: 0vh;
+    margin-top: 23%;
+    justify-content: center;
+    margin-left: 42%;
+    display: flex;
+    background-color: rgba(49, 42, 42, 0.705);
+    z-index: 20;
+}
+
+.control {
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    height: auto;
+    width: auto;
+    background-color: rgba(49, 42, 42, 0.705);
+    /* margin-left: 38%; */
+}
+
+.call-end {
+    background-color: rgba(255, 0, 0, 0.521);
 }

@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import * as FaIcons from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 import Chat from './Chat';

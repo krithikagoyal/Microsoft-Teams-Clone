@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import Navbar from '../Chat/Navbar';
 import './Controls.css'
+import { BsMicFill } from 'react-icons/bs';
+import { IoVideocam } from 'react-icons/io5';
+import { MdCallEnd } from 'react-icons/md';
+import { BiMessageRoundedDetail } from 'react-icons/bi';
+import styled from "styled-components";
 
 function Controls(props) {
 
@@ -30,12 +35,12 @@ function Controls(props) {
     }
 
     return (
-        <div className="controls">
-            <button className="leave-room" onClick={props.leaveRoom}>Leave meeting</button>
-            <button className="switch-audio" onClick={switchAudio}>Mute/Unmute</button>
-            <button className="switch-video" onClick={switchVideo}>Video on/off</button>
-            {props.formState ? null : <button className="show-chat" onClick={visibility}>Chat</button>}
+        <div className={props.formState ? "controls-form" : "controls"}>
+            <IoVideocam onClick={switchVideo} className="control" />
+            <BsMicFill onClick={switchAudio} className="control" />
+            {props.formState ? null : <BiMessageRoundedDetail onClick={visibility} className="control" />}
             {props.formState ? null : <Navbar socketRef={props.socketRef} username={props.myUsername} chat={showChat} />}
+            <MdCallEnd onClick={props.leaveRoom} className="control call-end" />
         </div>
     )
 }

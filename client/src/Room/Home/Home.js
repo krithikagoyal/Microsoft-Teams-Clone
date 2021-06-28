@@ -1,20 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import styled from "styled-components";
 import InputName from '../InputName/InputName'
 import Videos from '../Videos/Videos'
 import Controls from '../Controls/Controls'
 import './Home.css';
-
-const MyVideo = styled.video`
-    height: 18%;
-    width: 28%;
-    position: absolute;
-    margin-left: 80vw;
-    margin-top: 1vh;
-    z-index: 10;
-`;
 
 function Home(props) {
     const [peers, setPeers] = useState([]);
@@ -120,12 +110,12 @@ function Home(props) {
 
     function leaveRoom() {
         socketRef.current.emit("user clicked leave meeting", socketRef.current.id);
-        props.history.push("/"); // check this
+        props.history.push("/");
     }
 
     return (
         <>
-            <MyVideo muted ref={userVideo} autoPlay playsInline />
+            <video muted ref={userVideo} autoPlay playsInline className={formState ? "center-video" : "side-video"}/>
             {formState ? <InputName hideForm={hideForm} changeName={changeName} /> :
                 <Videos peers={peers} />}
             <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={myUsername} />

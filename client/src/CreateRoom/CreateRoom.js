@@ -17,7 +17,7 @@ const CreateRoom = (props) => {
     }
 
     return (
-        <>
+        <div className="create-room">
             <h1 className="homeHeading">Welcome to Teams</h1>
             <form onSubmit={() => props.history.push(`/room/${room}`)}>
                 <input onChange={handleChange}
@@ -26,7 +26,7 @@ const CreateRoom = (props) => {
                     placeholder="Enter URL and press ENTER" />
             </form>
             <button onClick={create}>Start new meeting</button>
-        </>
+        </div>
     );
 };
 

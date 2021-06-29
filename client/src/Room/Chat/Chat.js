@@ -26,6 +26,7 @@ function Chat(props) {
 
     return (
         <div className="app">
+            <h1 className="title">Meeting Chat</h1>
             <ul className="message-list">
                 {messages.map((message, index) => {
                     return (

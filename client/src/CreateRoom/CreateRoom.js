@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { v1 as uuid } from "uuid";
 import './CreateRoom.css';
 
@@ -23,9 +23,10 @@ const CreateRoom = (props) => {
                 <input onChange={handleChange}
                     value={room}
                     type="text"
-                    placeholder="Enter URL and press ENTER" />
+                    placeholder="Type URL and press ENTER"
+                    className="input-name" />
             </form>
-            <button onClick={create}>Start new meeting</button>
+            <button onClick={create} className="new-meeting">Create new meeting</button>
         </div>
     );
 };

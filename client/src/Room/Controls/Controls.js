@@ -5,6 +5,7 @@ import { BsMicFill, BsMicMuteFill } from 'react-icons/bs';
 import { IoVideocam, IoVideocamOff } from 'react-icons/io5';
 import { MdCallEnd } from 'react-icons/md';
 import { BiMessageRoundedDetail } from 'react-icons/bi';
+import ReactTooltip from 'react-tooltip';
 
 function Controls(props) {
 
@@ -39,13 +40,14 @@ function Controls(props) {
 
     return (
         <div className={props.formState ? "controls-form" : "controls"}>
-            {videoOn ? <IoVideocam onClick={switchVideo} className="control" /> :
-                <IoVideocamOff onClick={switchVideo} className="control" />}
-            {audioOn ? <BsMicFill onClick={switchAudio} className="control" /> :
-                <BsMicMuteFill onClick={switchAudio} className="control" />}
-            {props.formState ? null : <BiMessageRoundedDetail onClick={visibility} className={showChat ? "control show-chat" : "control"} />}
+            {videoOn ? <IoVideocam data-tip="Turn off camera" onClick={switchVideo} className="control" /> :
+                <IoVideocamOff data-tip="Turn on camera" onClick={switchVideo} className="control" />}
+            {audioOn ? <BsMicFill data-tip="Turn off microphone" onClick={switchAudio} className="control" /> :
+                <BsMicMuteFill data-tip="Turn on microphone" onClick={switchAudio} className="control" />}
+            {props.formState ? null : <><BiMessageRoundedDetail data-tip="Chat with everyone" onClick={visibility} className={showChat ? "control show-chat" : "control"} /><ReactTooltip /></>}
             {props.formState ? null : <Navbar socketRef={props.socketRef} username={props.myUsername} chat={showChat} />}
-            <MdCallEnd onClick={props.leaveRoom} className="control call-end" />
+            <MdCallEnd onClick={props.leaveRoom} className="control call-end" data-tip="Leave call" />
+            <ReactTooltip />
         </div>
     )
 }

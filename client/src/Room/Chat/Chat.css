@@ -48,6 +48,25 @@
     border-radius: 8px;
 }
 
+.message-notifier div:nth-child(1) {
+    font-size: 11px;
+    color: white;
+    margin-bottom: 6px;
+    background-color: #242424;
+    width: fit-content;
+    /* width: 1vw; */
+    padding: 0;
+    margin: 0;
+}
+
+.message-notifier div:nth-child(2) {
+    background-color: #242424;
+    color: white;
+    display: inline;
+    padding: 5px;
+    border-radius: 8px;
+}
+
 .message-list {
     box-sizing: border-box;
     padding: 0 0 0 6px;
@@ -81,3 +100,16 @@
 .send-message-form input::placeholder {
     color: black;
 }
+
+.new-message {
+    background-color: rgba(0, 0, 0, 0);
+    color: white!important;
+    padding: 0!important;
+    margin: 0 !important;
+    border: 0px !important;
+}
+
+/* .Toastify__toast--default {
+    background: #fff;
+    color: #aaa;
+} */

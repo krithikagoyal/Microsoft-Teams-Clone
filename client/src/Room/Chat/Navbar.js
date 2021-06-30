@@ -9,7 +9,7 @@ function Navbar(props) {
         <>
             <IconContext.Provider value={{ color: '#fff' }}>
                 <nav className={props.chat ? 'nav-menu active' : 'nav-menu'}>
-                    <Chat socketRef={props.socketRef} username={props.username} />
+                    <Chat socketRef={props.socketRef} username={props.username} chat={props.chat}/>
                 </nav>
             </IconContext.Provider>
         </>

@@ -21,8 +21,8 @@ div.controls-form {
 
 .control {
     color: white;
-    padding: 20px;
-    font-size: 20px;
+    padding: 4vh;
+    font-size: 3vh;
     height: auto;
     width: auto;
     background-color: rgba(49, 42, 42, 0.705);

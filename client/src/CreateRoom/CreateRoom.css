@@ -12,16 +12,16 @@
     background-color: #464775;
     color: #fff;
     margin: 0px;
-    padding: 10px;
+    padding: 1.5vh;
     border-color: #464775;
     width: 18vw;
-    font-size:20px;
+    font-size: 3vh;
 }
 
 .input-name {
     background-color: #fff;
     color: black;
-    padding: 10px;
-    margin: 20px;
-    width:18vw;
+    padding: 1.5vh;
+    margin: 3vh;
+    width: 18vw;
 }

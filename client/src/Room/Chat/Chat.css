@@ -1,8 +1,6 @@
 :root {
-    /* --main-color: #5ea3d0; */
     --main-color: #e9eaf6;
     --secondary-color: white;
-    /* --main-text-color: #3e5869; */
     --main-text-color: #e9eaf6;
     --secondary-text-color: #b0c7d6;
     --send-message-form: #F5F5F5;
@@ -10,33 +8,31 @@
 
 .app {
     width: 100%;
-    /* height: calc(100% - 65px); */
     height: 89%;
-    /* background-color: #fff; */
 }
 
 .title {
-    height: 70px;
+    height: 11vh;
     color: black;
     background-color: white;
     box-sizing: border-box;
     margin: 0;
-    padding-top: 20px;
-    font-size: 23px;
-    padding-left: 50px;
+    padding-top: 3.5vh;
+    font-size: 3.5vh;
+    padding-left: 5vw;
 }
 
 .message {
-    margin: 15px 0;
+    margin: 2.5vh 0;
     background-color: white;
-    margin-left: 30px;
+    margin-left: 3vw;
 }
 
 .message div:nth-child(1) {
-    font-size: 11px;
+    font-size: 2vh;
     color: black;
     opacity: 0.9;
-    margin-bottom: 6px;
+    margin-bottom: 1vh;
     background-color: white;
 }
 
@@ -44,17 +40,16 @@
     background-color: #e9eaf6;
     color: black;
     display: inline;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 2.1vh;
+    border-radius: 1.2vh;
 }
 
 .message-notifier div:nth-child(1) {
-    font-size: 11px;
+    font-size: 2vh;
     color: white;
-    margin-bottom: 6px;
+    margin-bottom: 1vh;
     background-color: #242424;
     width: fit-content;
-    /* width: 1vw; */
     padding: 0;
     margin: 0;
 }
@@ -63,13 +58,13 @@
     background-color: #242424;
     color: white;
     display: inline;
-    padding: 5px;
-    border-radius: 8px;
+    padding: 1vh;
+    border-radius: 1.2vh;
 }
 
 .message-list {
     box-sizing: border-box;
-    padding: 0 0 0 6px;
+    padding: 0 0 0 1vh;
     margin: 0;
     width: 100%;
     height: 88%;
@@ -86,7 +81,7 @@
 
 .send-message-form input {
     width: 100%;
-    padding: 15px 10px;
+    padding: 2.1vh 1.2vh;
     border: none;
     margin: 0;
     background-color: var(--send-message-form);
@@ -108,8 +103,3 @@
     margin: 0 !important;
     border: 0px !important;
 }
-
-/* .Toastify__toast--default {
-    background: #fff;
-    color: #aaa;
-} */

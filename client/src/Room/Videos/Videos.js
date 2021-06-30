@@ -13,7 +13,7 @@ const Video = (props) => {
     return (
         <div className="video-container">
             <video playsInline autoPlay ref={ref} className="display-video"/>
-            <p>{props.username}</p>
+            <p className="username">{props.username}</p>
         </div>
     );
 }

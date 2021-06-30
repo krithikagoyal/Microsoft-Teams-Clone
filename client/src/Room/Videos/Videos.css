@@ -17,4 +17,14 @@
 
 .display-video {
     width: 100%;
+    z-index: 0;
+}
+
+.username {
+    color: white;
+    margin-top: -4.8vh;
+    background-color:rgba(0, 0, 0, 0.603);
+    z-index: 15;
+    position: relative;
+    padding-left: 1vw;
 }

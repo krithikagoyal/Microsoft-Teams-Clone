@@ -1,43 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import styled from "styled-components";
-import { Button, Form } from 'react-bootstrap';
-import Navbar from '../Chat/Navbar';
+import InputName from '../InputName/InputName'
+import Videos from '../Videos/Videos'
+import Controls from '../Controls/Controls'
+import './Home.css';
 
-const Container = styled.div`
-    padding: 20px;
-    display: flex;
-    height: 100vh;
-    width: 90%;
-    margin: auto;
-    flex-wrap: wrap;
-`;
-
-const StyledVideoBig = styled.video`
-    height: 40%;
-    width: 50%;
-`;
-
-
-const Video = (props) => {
-    const ref = useRef();
-
-    useEffect(() => {
-        props.peer.on("stream", stream => {
-            ref.current.srcObject = stream;
-        })
-    }, []);
-
-    return (
-        <div>
-            <StyledVideoBig playsInline autoPlay ref={ref} />
-            <p>{props.username}</p>
-        </div>
-    );
-}
-
-const Room = (props) => {
+function Home(props) {
     const [peers, setPeers] = useState([]);
     const [myUsername, changeName] = useState("Anonymous user");
     const [formState, setState] = useState(true);
@@ -133,63 +102,25 @@ const Room = (props) => {
         return peer;
     }
 
-    function leaveRoom() {
-        socketRef.current.emit("user clicked leave meeting", socketRef.current.id);
-        props.history.push("/");
-    }
-
-    function switchAudio() {
-        let enabled = userVideo.current.srcObject.getAudioTracks()[0].enabled;
-        if (enabled) {
-            userVideo.current.srcObject.getAudioTracks()[0].enabled = false;
-        } else {
-            userVideo.current.srcObject.getAudioTracks()[0].enabled = true;
-        }
-
-    }
-
-    function switchVideo() {
-        let enabled = userVideo.current.srcObject.getVideoTracks()[0].enabled;
-        if (enabled) {
-            userVideo.current.srcObject.getVideoTracks()[0].enabled = false;
-        } else {
-            userVideo.current.srcObject.getVideoTracks()[0].enabled = true;
-        }
-    }
-
     function hideForm() {
         setState(false);
         myUsernameRef.current = myUsername;
         socketRef.current.emit("join room", { roomID, myUsername });
     }
 
-    return (
-        <div>
-            <StyledVideoBig muted ref={userVideo} autoPlay playsInline />
-            {formState ? (<Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Enter your username:</Form.Label>
-                    <Form.Control type="name" placeholder="Enter username" onChange={e => changeName(e.target.value)} />
-                    <Form.Text className="text-muted">
-                        This is what other users will see.
-                    </Form.Text>
-                </Form.Group>
-                <Button variant="primary" onClick={hideForm}>
-                    Submit
-                </Button>
-            </Form>) : (<Container>
-                {peers.map((peer) => {
-                    return (
-                        <Video key={peer.peerID} peer={peer.peer} username={peer.username} />
-                    );
-                })}
-                <button onClick={leaveRoom}>Leave meeting</button>
-                <button onClick={switchAudio}>Mute/Unmute</button>
-                <button onClick={switchVideo}>Video on/off</button>
-                <Navbar socketRef={socketRef} username={myUsername} />
-            </Container>)}
-        </div>
-    );
-};
+    function leaveRoom() {
+        socketRef.current.emit("user clicked leave meeting", socketRef.current.id);
+        props.history.push("/");
+    }
 
-export default Room;
+    return (
+        <>
+            <video muted ref={userVideo} autoPlay playsInline className={formState ? "center-video" : "side-video"}/>
+            {formState ? <InputName hideForm={hideForm} changeName={changeName} /> :
+                <Videos peers={peers} />}
+            <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={myUsername} />
+        </>
+    );
+}
+
+export default Home;

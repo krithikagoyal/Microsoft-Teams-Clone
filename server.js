@@ -23,11 +23,6 @@ function leaveRoom(socket, userId) {
 io.on('connection', socket => {
     socket.on("join room", payload => {
         if (users[payload.roomID]) {
-            const length = users[payload.roomID].length;
-            if (length === 4) {
-                socket.emit("room full");
-                return;
-            }
             users[payload.roomID].push({ id: socket.id, username: payload.myUsername });
         } else {
             users[payload.roomID] = [{ id: socket.id, username: payload.myUsername }];

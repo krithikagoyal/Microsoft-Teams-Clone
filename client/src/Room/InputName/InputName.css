@@ -1,0 +1,12 @@
+.input-form {
+    margin-top: 60vh;
+    position: absolute;
+    margin-left: 42vw;
+    color: white;
+    justify-content: center;
+}
+
+.form-button {
+    background-color: #464775 !important;
+    border-color: #464775 !important;
+}

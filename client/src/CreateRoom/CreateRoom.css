@@ -1,0 +1,27 @@
+.create-room {
+    text-align: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.homeHeading {
+    padding-top: 30vh;
+}
+
+.new-meeting {
+    background-color: #464775;
+    color: #fff;
+    margin: 0px;
+    padding: 10px;
+    border-color: #464775;
+    width: 18vw;
+    font-size:20px;
+}
+
+.input-name {
+    background-color: #fff;
+    color: black;
+    padding: 10px;
+    margin: 20px;
+    width:18vw;
+}

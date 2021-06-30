@@ -16,6 +16,7 @@
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-toastify": "^7.0.4",
     "simple-peer": "9.6.2",
     "socket.io-client": "^2.3.0",
     "styled-components": "^5.1.0",

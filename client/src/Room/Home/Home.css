@@ -1,0 +1,26 @@
+body {
+    overflow: hidden;
+}
+
+* {
+    background-color: #242424;
+}
+
+.center-video {
+    height: 40%;
+    width: auto;
+    position: absolute;
+    margin-left: 40vw;
+    margin-top: 10vh;
+    z-index: 10;
+    padding: 0;
+}
+
+.side-video {
+    height: 18%;
+    width: auto;
+    position: fixed;
+    margin-left: 87vw;
+    margin-top: 3vh;
+    z-index: 10;
+}

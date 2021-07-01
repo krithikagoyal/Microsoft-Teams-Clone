@@ -46,17 +46,17 @@
 
 .message-notifier div:nth-child(1) {
     font-size: 2vh;
-    color: white;
+    color: black;
     margin-bottom: 1vh;
-    background-color: #242424;
+    background-color: white;
     width: fit-content;
     padding: 0;
     margin: 0;
 }
 
 .message-notifier div:nth-child(2) {
-    background-color: #242424;
-    color: white;
+    background-color: white;
+    color: black;
     display: inline;
     padding: 1vh;
     border-radius: 1.2vh;

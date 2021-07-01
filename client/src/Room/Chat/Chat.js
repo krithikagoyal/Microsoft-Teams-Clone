@@ -65,7 +65,7 @@ function Chat(props) {
                     ref={ref}>
                 </div>
             </ul>
-            <ToastContainer className="new-message" />
+            <ToastContainer className="new-message"/>
             <SendMessageForm socketRef={props.socketRef} username={props.username} />
         </div>
     )

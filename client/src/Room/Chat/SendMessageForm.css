@@ -1,0 +1,41 @@
+.emoji-picker-react {
+    margin-top: -53vh;
+}
+
+.emoji-class {
+    position: absolute;
+    color: #838383 !important;
+    background-color: var(--send-message-form);
+    margin-left: -5vw;
+    font-size: 5vh;
+    margin-top: 2.8vh;
+}
+
+.send-message-form input:focus {
+    outline-width: 0;
+}
+
+.send-message-form input::placeholder {
+    color: black;
+}
+
+.send-message-form {
+    background-color: var(--send-message-form);
+    height: 12%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.send-message-form input {
+    width: 100%;
+    padding: 2.1vh 1.5vw;
+    border: none;
+    margin: 0;
+    background-color: var(--send-message-form);
+    font-weight: 200;
+    padding-top: 3.5vh;
+}
+
+.input-message-form {
+    padding-right: 20px;
+}

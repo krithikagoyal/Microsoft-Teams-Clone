@@ -48,23 +48,23 @@ function Chat(props) {
     return (
         <div className="app">
             <h1 className="title">Meeting Chat</h1>
-            <ul className="message-list">
+            <div className="message-list">
                 {messages.map((message, index) => {
                     return (
-                        <li className="message" key={index}>
+                        <div className="message" key={index}>
                             <div>
                                 {message.senderId}
                             </div>
                             <div>
                                 {message.text}
                             </div>
-                        </li>
+                        </div>
                     )
                 })}
                 <div className="message" id="content"
                     ref={ref}>
                 </div>
-            </ul>
+            </div>
             <ToastContainer className="new-message"/>
             <SendMessageForm socketRef={props.socketRef} username={props.username} />
         </div>

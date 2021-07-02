@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { v1 as uuid } from "uuid";
 import './CreateRoom.css';
+import CalenderApi from "./CalenderApi";
 
 const CreateRoom = (props) => {
 
@@ -27,6 +28,7 @@ const CreateRoom = (props) => {
                     className="input-name" />
             </form>
             <button onClick={create} className="new-meeting">Create new meeting</button>
+            <CalenderApi />
         </div>
     );
 };

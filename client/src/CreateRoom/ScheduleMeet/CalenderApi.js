@@ -17,7 +17,6 @@ function CalenderApi(props) {
     var SCOPES = "https://www.googleapis.com/auth/calendar";
 
     var authorizeButton;
-    var signoutButton;
     var emails = [], description = "";
 
     /**
@@ -34,7 +33,6 @@ function CalenderApi(props) {
         document.body.appendChild(script);
 
         authorizeButton = document.getElementById('authorize_button');
-        signoutButton = document.getElementById('signout_button');
         handleClientLoad();
 
         return () => {
@@ -75,7 +73,6 @@ function CalenderApi(props) {
             updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
 
             authorizeButton.onclick = handleAuthClick;
-            signoutButton.onclick = handleSignoutClick;
 
         }, function (error) {
             appendPre(JSON.stringify(error, null, 2));
@@ -89,11 +86,10 @@ function CalenderApi(props) {
     function updateSigninStatus(isSignedIn) {
         if (isSignedIn) {
             authorizeButton.style.display = 'none';
-            signoutButton.style.display = 'block';
+            handleSignoutClick();
             createEvent()
         } else {
             authorizeButton.style.display = 'block';
-            signoutButton.style.display = 'none';
         }
     }
 
@@ -166,7 +162,6 @@ function CalenderApi(props) {
     return (
         <div>
             <button id="authorize_button" style={{ display: "none" }}>Authorize</button>
-            <button id="signout_button" style={{ display: "none" }}>Sign Out</button>
             <pre id="content" style={{ whiteSpace: "pre-wrap" }}></pre>
         </div>
     )

@@ -1,6 +1,5 @@
 .create-room {
     text-align: center;
-    justify-content: center;
     color: #fff;
     background-color: #242424;
 }
@@ -25,4 +24,15 @@
     padding: 1.5vh;
     margin: 3vh;
     width: 18vw;
+}
+
+.schedule-meet {
+    background-color: #464775;
+    color: #fff;
+    margin: 0px;
+    padding: 1.5vh;
+    border-color: #464775;
+    width: 18vw;
+    font-size: 3vh;
+    margin-top: 3vh;
 }

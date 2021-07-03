@@ -161,7 +161,7 @@ function CalenderApi(props) {
 
     return (
         <div>
-            <button id="authorize_button" style={{ display: "none" }}>Choose email</button>
+            <button id="authorize_button" style={{ display: "none" }}>Choose your email</button>
             <pre id="content" style={{ whiteSpace: "pre-wrap" }}></pre>
         </div>
     )

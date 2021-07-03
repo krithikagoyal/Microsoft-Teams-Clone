@@ -36,8 +36,8 @@ class AttendeesEmail extends React.Component {
         const link = `http://localhost:3000/room/${id}`;
         return (
             <div className="schedule-meet-form">
-                <h4 style={{ color: "#4b53bc"}}>Details of the event</h4>
-                <p className="form-input">Email</p>
+                <h4 style={{ color: "#4b53bc"}}>Enter details of the event</h4>
+                <p className="form-input">Emails:</p>
                 {React.createElement(ReactMultiEmail, {
                     placeholder: "Enter emails of the people you want ot invite.", emails: emails, onChange: (_emails) => {
                         this.setState({ emails: _emails });
@@ -62,7 +62,7 @@ class AttendeesEmail extends React.Component {
                 <Form onSubmit={this.formSubmit}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Description of the Event</Form.Label>
-                        <Form.Control as="textarea" rows={3} onChange={e => this.setState({ description: e.target.value })} />
+                        <Form.Control as="textarea" rows={1} onChange={e => this.setState({ description: e.target.value })} />
                     </Form.Group>
                     <Button variant="primary" type="submit" className="button-input">
                         Submit

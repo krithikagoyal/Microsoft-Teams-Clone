@@ -1,7 +1,7 @@
 .schedule-meet-form {
     text-align: center;
     height: 100vh;
-    padding: 2vh 35vw;
+    padding: 3vh 15vw;
 }
 
 .form-input {
@@ -22,7 +22,7 @@
 }
 
 #authorize_button {
-    margin-left: 10.5vw;
+    margin-left: 35.5vw;
     color: white;
     background-color: #4b53bc !important;
     margin-top:-2vh;

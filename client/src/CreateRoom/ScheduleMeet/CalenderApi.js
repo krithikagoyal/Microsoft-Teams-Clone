@@ -158,8 +158,8 @@ function CalenderApi(props) {
             'resource': event
         });
 
-        request.execute(function (event) {
-            appendPre('Event created: ' + event.htmlLink);
+        request.execute(function (_event) {
+            appendPre('Event created: ' + _event.htmlLink);
         });
     }
 

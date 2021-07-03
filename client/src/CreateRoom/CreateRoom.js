@@ -16,6 +16,10 @@ const CreateRoom = (props) => {
         setRoom(e.target.value);
     }
 
+    function scheduleMeet() {
+        props.history.push(`/schedulemeet`);
+    }
+
     return (
         <div className="create-room">
             <h1 className="homeHeading">Welcome to Teams</h1>
@@ -26,7 +30,9 @@ const CreateRoom = (props) => {
                     placeholder="Type URL and press ENTER"
                     className="input-name" />
             </form>
-            <button onClick={create} className="new-meeting">Create new meeting</button>
+            <button onClick={create} className="new-meeting">Start instant meet</button>
+            <br/>
+            <button onClick={scheduleMeet} className="schedule-meet">Schedule a meet</button>
         </div>
     );
 };

@@ -1,0 +1,35 @@
+.schedule-meet-form {
+    text-align: center;
+    height: 100vh;
+    padding: 2vh 35vw;
+}
+
+.form-input {
+    padding-bottom: 0;
+    margin-bottom: 1vh;
+}
+
+.form-inpot-box {
+    margin-bottom: 3vh;
+}
+
+.start-time {
+    margin-top: 2.5vh;
+}
+
+.button-input {
+    background-color: #4b53bc !important;
+}
+
+#authorize_button {
+    margin-left: 10.5vw;
+    color: white;
+    background-color: #4b53bc !important;
+    margin-top:-2vh;
+}
+
+#content {
+    margin-left: 25vw;
+    margin-top: -14vh;
+    width: 15vw;
+}

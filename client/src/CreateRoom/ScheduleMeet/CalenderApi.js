@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { gapi } from 'gapi-script';
 import config from '../../config';
+import { useHistory } from "react-router-dom";
 
 function CalenderApi(props) {
 
@@ -113,10 +114,9 @@ function CalenderApi(props) {
      *
      * @param {string} message Text to be placed in pre element.
      */
+    let history = useHistory();
     function appendPre(message) {
-        var pre = document.getElementById('content');
-        var textContent = document.createTextNode(message + '\n');
-        pre.appendChild(textContent);
+        history.push('/eventcreated', { data: message });
     }
 
     // Refer to the JavaScript quickstart on how to setup the environment:
@@ -161,7 +161,7 @@ function CalenderApi(props) {
 
     return (
         <div>
-            <button id="authorize_button" style={{ display: "none" }}>Authorize</button>
+            <button id="authorize_button" style={{ display: "none" }}>Choose email</button>
             <pre id="content" style={{ whiteSpace: "pre-wrap" }}></pre>
         </div>
     )

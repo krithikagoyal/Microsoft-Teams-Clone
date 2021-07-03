@@ -9490,6 +9490,11 @@ react-linkify@^0.2.1:
     prop-types "^15.5.8"
     tlds "^1.57.0"
 
+react-multi-email@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/react-multi-email/-/react-multi-email-0.5.3.tgz#734a0d4d1af23feef5cb5e635bde23963b0a9e8b"
+  integrity sha512-1AneeJlAwjvzkPV740q2SXes/kW3HKOzR3gs+U7whrHN5nz+yH5Unosf/rvz8kRj/eFwBf6fTzMqlJiupu7S5Q==
+
 react-overlays@^5.0.1:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-5.1.0.tgz#107fbe4ff88e61f9c379f976b049a1554141d06b"

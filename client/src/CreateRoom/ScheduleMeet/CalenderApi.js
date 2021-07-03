@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { gapi } from 'gapi-script';
-import config from '../config';
+import config from '../../config';
 
-function CalenderApi() {
+function CalenderApi(props) {
 
     // Client ID and API key from the Developer Console
+
     var CLIENT_ID = config.config[0].CLIENT_ID;
     var API_KEY = config.config[0].API_KEY;
 
@@ -17,6 +18,7 @@ function CalenderApi() {
 
     var authorizeButton;
     var signoutButton;
+    var emails = [], description = "";
 
     /**
      *  On load, called to load the auth2 library and API client library.
@@ -40,6 +42,17 @@ function CalenderApi() {
         }
     }, [])
 
+    useEffect(() => {
+
+        emails = [];
+        props.attendees.map((email) => {
+            emails.push({ 'email': email });
+        });
+
+        description = props.description;
+
+    }, [props.attendees, props.description])
+
     function handleClientLoad() {
         gapi.load('client:auth2', initClient);
     }
@@ -60,8 +73,10 @@ function CalenderApi() {
 
             // Handle the initial sign-in state.
             updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
             authorizeButton.onclick = handleAuthClick;
             signoutButton.onclick = handleSignoutClick;
+
         }, function (error) {
             appendPre(JSON.stringify(error, null, 2));
         });
@@ -114,23 +129,21 @@ function CalenderApi() {
     // stored credentials.
     function createEvent() {
         var event = {
-            'summary': 'Engage testing',
-            'location': '800 Howard St., San Francisco, CA 94103',
-            'description': 'testing api for engage project.',
+            'summary': description,
+            'location': 'online',
+            'description': "Join the meet with: " + props.link,
             'start': {
-                'dateTime': '2021-07-2T09:00:00-07:00',
+                'dateTime': props.start,
                 'timeZone': 'America/Los_Angeles'
             },
             'end': {
-                'dateTime': '2021-07-2T17:00:00-07:00',
+                'dateTime': props.end,
                 'timeZone': 'America/Los_Angeles'
             },
             'recurrence': [
-                'RRULE:FREQ=DAILY;COUNT=2'
+                'RRULE:FREQ=DAILY;COUNT=1'
             ],
-            'attendees': [
-                { 'email': 'tproject730@gmail.com' },
-            ],
+            'attendees': emails,
             'reminders': {
                 'useDefault': false,
                 'overrides': [

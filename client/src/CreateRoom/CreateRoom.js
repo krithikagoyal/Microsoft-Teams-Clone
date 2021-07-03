@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { v1 as uuid } from "uuid";
 import './CreateRoom.css';
-import CalenderApi from "./CalenderApi";
 
 const CreateRoom = (props) => {
 
@@ -17,6 +16,10 @@ const CreateRoom = (props) => {
         setRoom(e.target.value);
     }
 
+    function scheduleMeet() {
+        props.history.push(`/schedulemeet`);
+    }
+
     return (
         <div className="create-room">
             <h1 className="homeHeading">Welcome to Teams</h1>
@@ -28,7 +31,7 @@ const CreateRoom = (props) => {
                     className="input-name" />
             </form>
             <button onClick={create} className="new-meeting">Create new meeting</button>
-            <CalenderApi />
+            <button onClick={scheduleMeet}>Schedule a meet</button>
         </div>
     );
 };

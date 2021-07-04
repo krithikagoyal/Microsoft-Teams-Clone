@@ -4,7 +4,7 @@ div.controls {
     padding-top: 0;
     display: flex;
     z-index: 20;
-    margin-left: 39%;
+    margin-left: 36.5%;
 }
 
 div.controls-form {
@@ -35,4 +35,13 @@ div.controls-form {
 
 .show-chat {
     background-color: #62577e77;
+}
+
+.control-copy {
+    color: rgb(187, 36, 36);
+    background-color: rgba(73, 67, 67, 0.486);
+    width: 0vw;
+    height: 0vh;
+    position: absolute;
+    margin-top: 99vh;
 }

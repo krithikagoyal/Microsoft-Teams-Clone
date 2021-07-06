@@ -1,6 +1,9 @@
 {
   "name": "group-video-final",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.x"
+  },
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
@@ -9,5 +12,9 @@
     "glamor": "^2.20.40",
     "react-tooltip": "^4.2.21",
     "socket.io": "^2.3.0"
+  },
+  "scripts": {
+    "start": "PROD=true node server.js",
+    "postinstall": "cd ./client && yarn"
   }
 }

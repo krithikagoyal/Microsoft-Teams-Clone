@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { gapi } from 'gapi-script';
-import config from '../../config';
 import { useHistory } from "react-router-dom";
 
 function CalenderApi(props) {
 
     // Client ID and API key from the Developer Console
 
-    var CLIENT_ID = config.config[0].CLIENT_ID;
-    var API_KEY = config.config[0].API_KEY;
+    var CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+    var API_KEY = process.env.REACT_APP_API_KEY;
 
     // Array of API discovery doc URLs for APIs used by the quickstart
     var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];

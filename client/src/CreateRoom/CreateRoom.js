@@ -1,10 +1,27 @@
 import React, { useState } from "react";
 import { v1 as uuid } from "uuid";
 import './CreateRoom.css';
+import { useAuth } from "../authentication/contexts/AuthContext";
+import { Link, useHistory } from "react-router-dom"
 
 const CreateRoom = (props) => {
 
     const [room, setRoom] = useState("");
+    const history = useHistory()
+    const { currentUser, logout } = useAuth();
+    const [error, setError] = useState("");
+
+    async function handleLogout() {
+        setError("")
+
+        try {
+            await logout()
+            history.push("/login")
+        } catch {
+            setError("Failed to log out")
+        }
+    }
+
 
     function create() {
         const id = uuid();
@@ -31,8 +48,10 @@ const CreateRoom = (props) => {
                     className="input-name" />
             </form>
             <button onClick={create} className="new-meeting">Start instant meet</button>
-            <br/>
+            <br />
             <button onClick={scheduleMeet} className="schedule-meet">Schedule a meet</button>
+            <br/>
+            <button onClick={handleLogout} className="handle-logout">Log out</button>
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import InputName from '../InputName/InputName'
+import JoinMeet from '../InputName/JoinMeet'
 import Videos from '../Videos/Videos'
 import Controls from '../Controls/Controls'
 import './Home.css';
@@ -148,7 +148,7 @@ function Home(props) {
     return (
         <>
             <video muted ref={userVideo} autoPlay playsInline className={formState ? "center-video" : "side-video"} />
-            {formState ? <InputName hideForm={hideForm} /> :
+            {formState ? <JoinMeet hideForm={hideForm} /> :
                 showVideo ? <Videos peers={peers} /> : <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} />}
             <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={showVideo} roomID={props.match.params.roomID} />
         </>

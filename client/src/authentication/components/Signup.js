@@ -2,11 +2,13 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+import { firedb } from '../firebase';
 
 export default function Signup() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
+  const usernameRef = useRef()
   const { signup } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -23,6 +25,8 @@ export default function Signup() {
       setError("")
       setLoading(true)
       await signup(emailRef.current.value, passwordRef.current.value)
+      var newKey = (emailRef.current.value).replace('.', '')
+      firedb.child("usernames").child(newKey).set(usernameRef.current.value)
       history.push("/")
     } catch {
       setError("Failed to create an account")
@@ -38,6 +42,10 @@ export default function Signup() {
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
+            <Form.Group id="username">
+              <Form.Label>Username</Form.Label>
+              <Form.Control type="text" ref={usernameRef} required />
+            </Form.Group>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />

@@ -7,10 +7,10 @@ import Controls from '../Controls/Controls'
 import './Home.css';
 import MeetingStatus from "../Videos/MeetingStatus";
 import { firedb } from '../../authentication/firebase'
+import { useAuth } from '../../authentication/contexts/AuthContext';
 
 function Home(props) {
     const [peers, setPeers] = useState([]);
-    const [myUsername, changeName] = useState("Anonymous user");
     const [formState, setState] = useState(true);
     const socketRef = useRef();
     const userVideo = useRef();
@@ -20,9 +20,19 @@ function Home(props) {
     const [startTime, initialiseStartTime] = useState(null);
     const [endTime, initialiseEndTime] = useState(null);
     const [showVideo, changeVideoState] = useState(false);
+    const { currentUser, logout } = useAuth()
+    const [currentUsername, changeUserName] = useState("");
 
     useEffect(() => {
         socketRef.current = io.connect("/");
+
+        var key = (currentUser.email).replace('.', '')
+        firedb.child("usernames").child(key).on("value", name => {
+            changeUserName(name.val())
+            myUsernameRef.current = currentUsername;
+        })
+
+
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
 
@@ -121,7 +131,7 @@ function Home(props) {
 
     function hideForm() {
         setState(false);
-        myUsernameRef.current = myUsername;
+        myUsernameRef.current = currentUsername;
     }
 
     function leaveRoom() {
@@ -131,16 +141,16 @@ function Home(props) {
 
     function changeStatus() {
         changeVideoState(!showVideo);
-        socketRef.current.emit("join room", { roomID, myUsername });
+        socketRef.current.emit("join room", { roomID, currentUsername });
     }
 
 
     return (
         <>
             <video muted ref={userVideo} autoPlay playsInline className={formState ? "center-video" : "side-video"} />
-            {formState ? <InputName hideForm={hideForm} changeName={changeName} /> :
+            {formState ? <InputName hideForm={hideForm} /> :
                 showVideo ? <Videos peers={peers} /> : <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} />}
-            <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={myUsername} showVideo={showVideo} roomID={props.match.params.roomID} />
+            <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={showVideo} roomID={props.match.params.roomID} />
         </>
     );
 }

@@ -35,12 +35,13 @@ function Chat(props) {
     useEffect(() => {
         firedb.child(window.location.href).on("value", messagesdb => {
             if (messagesdb.val() != null) {
-                var messagesFromdb = [];
+                var messagessDB = [];
                 Object.keys(messagesdb.val()).map(id => {
-                    messagesFromdb.push(messagesdb.val()[id])
+                    messagessDB.push(messagesdb.val()[id])
                 })
-                addMessage(messagesFromdb);
             }
+            addMessage(messagessDB)
+            if (ref.current) { scrollToBottom(); }
         })
     }, []);
 
@@ -48,10 +49,8 @@ function Chat(props) {
 
         props.socketRef.current.on('receive message', payload => {
             if (props.roomID === payload.roomID) {
-                addMessage([...messages, { senderId: payload.username, text: payload.message }]);
-                scrollToBottom();
-                console.log(messages);
                 if (props.chat === false) { newMessageNotification(payload); }
+                scrollToBottom();
             }
         });
 

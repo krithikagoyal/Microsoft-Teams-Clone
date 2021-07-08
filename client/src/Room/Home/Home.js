@@ -132,6 +132,7 @@ function Home(props) {
     function hideForm() {
         setState(false);
         myUsernameRef.current = currentUsername;
+        socketRef.current.emit("join room", { roomID, currentUsername });
     }
 
     function leaveRoom() {
@@ -141,16 +142,20 @@ function Home(props) {
 
     function changeStatus() {
         changeVideoState(!showVideo);
-        socketRef.current.emit("join room", { roomID, currentUsername });
     }
 
 
     return (
         <>
-            <video muted ref={userVideo} autoPlay playsInline className={formState ? "center-video" : "side-video"} />
-            {formState ? <JoinMeet hideForm={hideForm} /> :
-                showVideo ? <Videos peers={peers} /> : <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} />}
-            <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={showVideo} roomID={props.match.params.roomID} />
+            <video muted ref={userVideo} autoPlay playsInline className={formState && showVideo ? "center-video" : "side-video"} />
+            {!showVideo ? <>
+                <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} />
+                {socketRef.current ? <Controls formState={false} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={false} roomID={props.match.params.roomID} /> : null}
+            </> :
+                <>
+                    {formState ? <JoinMeet hideForm={hideForm} /> : <Videos peers={peers} />}
+                    <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={true} roomID={props.match.params.roomID} />
+                </>}
         </>
     );
 }

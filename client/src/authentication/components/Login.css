@@ -1,0 +1,40 @@
+.login-card {
+    width: 30%;
+    height: 47%;
+    color: #242424;
+    margin-top: 29vh;
+    margin-left: 35vw;
+    position: absolute;
+    padding: 3%;
+}
+
+.login-card-div {
+    width: 100%;
+    height: 150vh;
+    background-color: rgb(231, 231, 255);
+    margin-top: -16vh;
+    position: absolute;
+}
+
+.signup-login {
+    color: black;
+    background-color: #fff;
+    width: 30%;
+    margin-left: 35vw;
+    margin-top: -1vh;
+}
+
+.login-button {
+    background-color: #5f5f8b !important;
+    border-width: 0 !important;
+}
+
+.signup-card {
+    width: 30%;
+    height: 63%;
+    color: #242424;
+    margin-top: 19vh;
+    margin-left: 35vw;
+    position: absolute;
+    padding: 3%;
+}

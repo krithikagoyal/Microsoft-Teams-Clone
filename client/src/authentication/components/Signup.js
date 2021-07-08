@@ -3,6 +3,7 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import { firedb } from '../firebase';
+import './Login.css';
 
 export default function Signup() {
   const emailRef = useRef()
@@ -36,9 +37,9 @@ export default function Signup() {
   }
 
   return (
-    <>
-      <Card>
-        <Card.Body>
+    <div className="login-card-div">
+      <Card className="signup-card">
+        <Card.Body className="login-card-body">
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
@@ -58,15 +59,15 @@ export default function Signup() {
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button disabled={loading} className="w-100 login-button" type="submit">
               Sign Up
             </Button>
           </Form>
+          <div className="w-100 text-center mt-2">
+            Already have an account? <Link to="/login">Log In</Link>
+          </div>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? <Link to="/login">Log In</Link>
-      </div>
-    </>
+    </div>
   )
 }

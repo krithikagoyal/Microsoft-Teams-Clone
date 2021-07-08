@@ -7,28 +7,12 @@ import { MdCallEnd } from 'react-icons/md';
 import { BiMessageRoundedDetail } from 'react-icons/bi';
 import { ImCopy } from 'react-icons/im';
 import ReactTooltip from 'react-tooltip';
-import { useAuth } from "../../authentication/contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom"
 
 function Controls(props) {
 
     const [showChat, changeVisibility] = useState(false);
     const [videoOn, changeVideo] = useState(true);
     const [audioOn, changeAudio] = useState(true);
-    const history = useHistory()
-    const { currentUser, logout } = useAuth();
-    const [error, setError] = useState("");
-
-    async function handleLogout() {
-        setError("")
-
-        try {
-            await logout()
-            history.push("/login")
-        } catch {
-            setError("Failed to log out")
-        }
-    }
 
     function switchAudio() {
         changeAudio(!audioOn);
@@ -73,7 +57,7 @@ function Controls(props) {
                     <BsMicMuteFill data-tip="Turn on microphone" onClick={switchAudio} className="control" />}
                 {props.formState || !props.showVideo ? null : <><BiMessageRoundedDetail data-tip="Chat with everyone" onClick={visibility} className={showChat ? "control show-chat" : "control"} /><ReactTooltip /></>}
                 {props.formState ? null : <Navbar socketRef={props.socketRef} username={props.myUsername} chat={props.showVideo ? showChat : true} roomID={props.roomID} />}
-                {!props.showVideo ? null : <MdCallEnd onClick={props.leaveRoom} className="control call-end" data-tip="Leave call" />}
+                {!props.showVideo ? null : <MdCallEnd onClick={props.videoFunc} className="control call-end" data-tip="Leave call" />}
                 <ReactTooltip />
             </div>
             <textarea id="paste-box" rows="1" cols="1" className="control-copy"></textarea>

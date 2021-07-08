@@ -149,12 +149,12 @@ function Home(props) {
         <>
             <video muted ref={userVideo} autoPlay playsInline className={formState && showVideo ? "center-video" : "side-video"} style={!showVideo ? { visibility: "hidden" } : null} />
             {!showVideo ? <div className="chat-room">
-                <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} leaveRoom={leaveRoom}/>
+                <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} leaveRoom={leaveRoom} />
                 {socketRef.current ? <Controls formState={false} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={false} roomID={props.match.params.roomID} /> : null}
             </div> :
                 <>
                     {formState ? <JoinMeet hideForm={hideForm} /> : <Videos peers={peers} />}
-                    <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={true} roomID={props.match.params.roomID} />
+                    <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={true} roomID={props.match.params.roomID} videoFunc={changeStatus} />
                 </>}
         </>
     );

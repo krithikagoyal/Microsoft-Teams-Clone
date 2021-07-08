@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './MeetingStatus.css';
+import { Form, Button, Card, Alert } from "react-bootstrap"
 
 function MeetingStatus(props) {
     const [timeNow, updateTimeNow] = useState("");
@@ -29,9 +30,14 @@ function MeetingStatus(props) {
 
     return (
         <div className="meeting-status">
-            <h1 className="time-now">{timeNow}</h1>
-            {newEvent ? <p className="meet-time">Invite people with link {window.location.href}</p> : <p className="meet-time">Meeting will take place from {props.startTime} till {props.endTime}</p>}
-            <button onClick={handleClick} className="join-meeting-room">Join Video Call</button>
+            <Card>
+                <Card.Body className="chat-room-card">
+                    <h1 className="time-now">Chat Room</h1>
+                    {newEvent ? <p className="meet-time">Invite people with link {window.location.href}</p> : <p className="meet-time">Meeting will take place from {props.startTime} till {props.endTime}</p>}
+                    <button onClick={handleClick} className="join-meeting-room">Join Video Call</button>
+                    <button onClick={props.leaveRoom} className="leave-meeting-room">Leave room</button>
+                </Card.Body>
+            </Card>
         </div>
     )
 }

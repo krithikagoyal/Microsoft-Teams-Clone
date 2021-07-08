@@ -1,16 +1,32 @@
 .meeting-status {
     position: absolute;
-    color: #fff;
-    background-color: #242424;
-    margin-top: 15vh;
-    margin-left: 5vw;
+    color: black;
+    background-color: white;
+    margin-top: 23vh;
+    margin-left: 16vw;
+    height: 50%;
+    width: 40%;
 }
 
 .join-meeting-room {
     color: #fff;
-    background-color: #464775;
+    background-color: #4b53bc;
     border-radius: 10px;
     border-width: 0;
     height: 7vh;
     width: 10vw;
+}
+
+.leave-meeting-room {
+    color: #fff;
+    background-color: rgb(255, 74, 74);
+    border-radius: 10px;
+    border-width: 0;
+    height: 7vh;
+    width: 10vw;
+    margin-left: 2vh;
+}
+
+.chat-room-card {
+    padding: 10% !important;
 }

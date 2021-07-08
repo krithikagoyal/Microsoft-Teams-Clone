@@ -24,3 +24,9 @@ html {
     margin-top: 3vh;
     z-index: 10;
 }
+
+.chat-room {
+    width: 100vw;
+    height: 100vh;
+    background-color: #dae2ee;
+}

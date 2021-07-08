@@ -36,7 +36,7 @@ class AttendeesEmail extends React.Component {
         const link = `http://localhost:3000/room/${id}`;
         return (
             <div className="schedule-meet-form">
-                <h4 style={{ color: "#4b53bc"}}>Enter details of the event</h4>
+                <h4 style={{ color: "#4b53bc" }}>Enter details of the event</h4>
                 <p className="form-input">Emails:</p>
                 {React.createElement(ReactMultiEmail, {
                     placeholder: "Enter emails of the people you want ot invite.", emails: emails, onChange: (_emails) => {
@@ -67,7 +67,7 @@ class AttendeesEmail extends React.Component {
                     <Button variant="primary" type="submit" className="button-input">
                         Submit
                     </Button>
-                </Form>,
+                </Form>
                 <>{authorise ? <CalenderApi description={description} link={link} attendees={emails} start={startdateTime + timezone} end={enddateTime + timezone} /> : null}</>
             </div>
         );

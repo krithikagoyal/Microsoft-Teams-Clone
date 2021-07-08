@@ -23,10 +23,11 @@ function leaveRoom(socket, userId) {
 
 io.on('connection', socket => {
     socket.on("join room", payload => {
+
         if (users[payload.roomID]) {
-            users[payload.roomID].push({ id: socket.id, username: payload.myUsername });
+            users[payload.roomID].push({ id: socket.id, username: payload.currentUsername });
         } else {
-            users[payload.roomID] = [{ id: socket.id, username: payload.myUsername }];
+            users[payload.roomID] = [{ id: socket.id, username: payload.currentUsername }];
         }
         socketToRoom[socket.id] = payload.roomID;
         const usersInThisRoom = users[payload.roomID].filter(user => user.id !== socket.id);
@@ -51,7 +52,7 @@ io.on('connection', socket => {
     });
 
     socket.on('send message', payload => {
-        io.emit('receive message', { username: payload.username, message: payload.message });
+        io.emit('receive message', { username: payload.username, message: payload.message, roomID: payload.roomID });
     });
 
 });

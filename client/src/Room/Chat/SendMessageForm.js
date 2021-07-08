@@ -3,6 +3,7 @@ import './Chat.css';
 import Picker from 'emoji-picker-react';
 import './SendMessageForm.css';
 import { BiSmile } from "react-icons/bi";
+import { firedb } from '../../authentication/firebase';
 
 function SendMessageForm(props) {
 
@@ -19,10 +20,11 @@ function SendMessageForm(props) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        console.log("handle submit");
         const username = props.username;
-        props.socketRef.current.emit('send message', { username, message });
+        const roomID = props.roomID;
+        props.socketRef.current.emit('send message', { username, message, roomID });
         setMessage("");
+        firedb.child(window.location.href).push({ senderId: username, text: message });
     }
 
     return (

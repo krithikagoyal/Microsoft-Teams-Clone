@@ -1,23 +1,38 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import InputName from '../InputName/InputName'
+import JoinMeet from '../InputName/JoinMeet'
 import Videos from '../Videos/Videos'
 import Controls from '../Controls/Controls'
 import './Home.css';
+import MeetingStatus from "../Videos/MeetingStatus";
+import { firedb } from '../../authentication/firebase'
+import { useAuth } from '../../authentication/contexts/AuthContext';
 
 function Home(props) {
     const [peers, setPeers] = useState([]);
-    const [myUsername, changeName] = useState("Anonymous user");
     const [formState, setState] = useState(true);
     const socketRef = useRef();
     const userVideo = useRef();
     const peersRef = useRef([]);
     const myUsernameRef = useRef();
     const roomID = props.match.params.roomID;
+    const [startTime, initialiseStartTime] = useState(null);
+    const [endTime, initialiseEndTime] = useState(null);
+    const [showVideo, changeVideoState] = useState(false);
+    const { currentUser, logout } = useAuth()
+    const [currentUsername, changeUserName] = useState("");
 
     useEffect(() => {
         socketRef.current = io.connect("/");
+
+        var key = (currentUser.email).replace('.', '')
+        firedb.child("usernames").child(key).on("value", name => {
+            changeUserName(name.val())
+            myUsernameRef.current = currentUsername;
+        })
+
+
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
 
@@ -69,6 +84,18 @@ function Home(props) {
                 setPeers(newPeers);
             })
         })
+
+        firedb.child("events").child(window.location.href).on("value", time => {
+            if (time.val() != null) {
+                let starttime = time.val().start;
+                let endtime = time.val().end;
+                starttime = new Date(starttime);
+                endtime = new Date(endtime);
+                initialiseStartTime(starttime.toLocaleString());
+                initialiseEndTime(endtime.toLocaleString());
+            }
+        })
+
     }, []);
 
     function createPeer(userToSignal, callerID, stream) {
@@ -104,8 +131,8 @@ function Home(props) {
 
     function hideForm() {
         setState(false);
-        myUsernameRef.current = myUsername;
-        socketRef.current.emit("join room", { roomID, myUsername });
+        myUsernameRef.current = currentUsername;
+        socketRef.current.emit("join room", { roomID, currentUsername });
     }
 
     function leaveRoom() {
@@ -113,12 +140,22 @@ function Home(props) {
         props.history.push("/");
     }
 
+    function changeStatus() {
+        changeVideoState(!showVideo);
+    }
+
+
     return (
         <>
-            <video muted ref={userVideo} autoPlay playsInline className={formState ? "center-video" : "side-video"}/>
-            {formState ? <InputName hideForm={hideForm} changeName={changeName} /> :
-                <Videos peers={peers} />}
-            <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={myUsername} />
+            <video muted ref={userVideo} autoPlay playsInline className={formState && showVideo ? "center-video" : "side-video"} style={!showVideo ? { visibility: "hidden" } : null} />
+            {!showVideo ? <div className="chat-room">
+                <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} leaveRoom={leaveRoom} />
+                {socketRef.current ? <Controls formState={false} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={false} roomID={props.match.params.roomID} /> : null}
+            </div> :
+                <>
+                    {formState ? <JoinMeet hideForm={hideForm} /> : <Videos peers={peers} />}
+                    <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={true} roomID={props.match.params.roomID} videoFunc={changeStatus} />
+                </>}
         </>
     );
 }

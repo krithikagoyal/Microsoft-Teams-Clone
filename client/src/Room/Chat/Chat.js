@@ -3,6 +3,7 @@ import './Chat.css';
 import SendMessageForm from './SendMessageForm';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { firedb } from '../../authentication/firebase';
 
 function Chat(props) {
 
@@ -32,11 +33,25 @@ function Chat(props) {
     }
 
     useEffect(() => {
+        firedb.child(window.location.href).on("value", messagesdb => {
+            if (messagesdb.val() != null) {
+                var messagessDB = [];
+                Object.keys(messagesdb.val()).map(id => {
+                    messagessDB.push(messagesdb.val()[id])
+                })
+                addMessage(messagessDB)
+            }
+            if (ref.current) { scrollToBottom(); }
+        })
+    }, []);
+
+    useEffect(() => {
 
         props.socketRef.current.on('receive message', payload => {
-            addMessage([...messages, { senderId: payload.username, text: payload.message }]);
-            scrollToBottom();
-            if (props.chat === false) { newMessageNotification(payload); }
+            if (props.roomID === payload.roomID) {
+                if (props.chat === false) { newMessageNotification(payload); }
+                scrollToBottom();
+            }
         });
 
         return () => {
@@ -65,8 +80,8 @@ function Chat(props) {
                     ref={ref}>
                 </div>
             </div>
-            <ToastContainer className="new-message"/>
-            <SendMessageForm socketRef={props.socketRef} username={props.username} />
+            <ToastContainer className="new-message" />
+            <SendMessageForm socketRef={props.socketRef} username={props.username} roomID={props.roomID} />
         </div>
     )
 }

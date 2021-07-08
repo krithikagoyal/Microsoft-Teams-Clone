@@ -50,14 +50,14 @@ function Controls(props) {
     return (
         <>
             <div className={props.formState ? "controls-form" : "controls"}>
-                {props.formState ? null : <><ImCopy data-tip="Copy joining info" onClick={copylink} className="control" id="copy" /><ReactTooltip /></>}
-                {videoOn ? <IoVideocam data-tip="Turn off camera" onClick={switchVideo} className="control" /> :
+                {!props.showVideo ? null : props.formState ? null : <><ImCopy data-tip="Copy joining info" onClick={copylink} className="control" id="copy" /><ReactTooltip /></>}
+                {!props.showVideo ? null : videoOn ? <IoVideocam data-tip="Turn off camera" onClick={switchVideo} className="control" /> :
                     <IoVideocamOff data-tip="Turn on camera" onClick={switchVideo} className="control" />}
-                {audioOn ? <BsMicFill data-tip="Turn off microphone" onClick={switchAudio} className="control" /> :
+                {!props.showVideo ? null : audioOn ? <BsMicFill data-tip="Turn off microphone" onClick={switchAudio} className="control" /> :
                     <BsMicMuteFill data-tip="Turn on microphone" onClick={switchAudio} className="control" />}
-                {props.formState ? null : <><BiMessageRoundedDetail data-tip="Chat with everyone" onClick={visibility} className={showChat ? "control show-chat" : "control"} /><ReactTooltip /></>}
-                {props.formState ? null : <Navbar socketRef={props.socketRef} username={props.myUsername} chat={showChat} />}
-                <MdCallEnd onClick={props.leaveRoom} className="control call-end" data-tip="Leave call" />
+                {props.formState || !props.showVideo ? null : <><BiMessageRoundedDetail data-tip="Chat with everyone" onClick={visibility} className={showChat ? "control show-chat" : "control"} /><ReactTooltip /></>}
+                {props.formState ? null : <Navbar socketRef={props.socketRef} username={props.myUsername} chat={props.showVideo ? showChat : true} roomID={props.roomID} />}
+                {!props.showVideo ? null : <MdCallEnd onClick={props.videoFunc} className="control call-end" data-tip="Leave call" />}
                 <ReactTooltip />
             </div>
             <textarea id="paste-box" rows="1" cols="1" className="control-copy"></textarea>

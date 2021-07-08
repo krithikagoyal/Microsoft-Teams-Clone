@@ -1,21 +1,24 @@
 .create-room {
-    text-align: center;
     color: #fff;
-    background-color: #242424;
+    background-color: white;
+    height: 100vh;
 }
 
 .homeHeading {
     padding-top: 30vh;
+    color: #4b53bc;
 }
 
 .new-meeting {
-    background-color: #464775;
+    background-color: #4b53bc;
     color: #fff;
     margin: 0px;
     padding: 1.5vh;
     border-color: #464775;
-    width: 18vw;
+    width: 14vw;
     font-size: 3vh;
+    border-radius: 10px;
+    border-width: 0;
 }
 
 .input-name {
@@ -23,16 +26,58 @@
     color: black;
     padding: 1.5vh;
     margin: 3vh;
-    width: 18vw;
+    width: 14vw;
+    border-radius: 10px;
 }
 
 .schedule-meet {
-    background-color: #464775;
+    background-color: #4b53bc;
     color: #fff;
     margin: 0px;
     padding: 1.5vh;
     border-color: #464775;
-    width: 18vw;
+    width: 14vw;
     font-size: 3vh;
     margin-top: 3vh;
+    border-radius: 10px;
+    border-width: 0;
+}
+
+.handle-logout {
+    background-color: white;
+    color: #4b53bc;
+    margin: 0px;
+    padding: 1.5vh;
+    border-color: #464775;
+    width: 14vw;
+    font-size: 3vh;
+    margin-top: 3vh;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #4b53bc;
+}
+
+.handle-logout:hover {
+    background-color: #4b53bc;
+    color: white;
+}
+
+.collaborate-img {
+    height: 40vh;
+    width: 40vw;
+}
+
+.image-left {
+    margin-left: 15vw;
+    margin-top: -9vh;
+    position: absolute;
+    text-align: center;
+}
+
+.image-side {
+    color: black;
+    position: absolute;
+    margin-left: 50vw;
+    margin-top: 27vh;
+    text-align: center;
 }

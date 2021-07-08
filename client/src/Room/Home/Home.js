@@ -147,7 +147,7 @@ function Home(props) {
 
     return (
         <>
-            <video muted ref={userVideo} autoPlay playsInline className={formState && showVideo ? "center-video" : "side-video"} />
+            <video muted ref={userVideo} autoPlay playsInline className={formState && showVideo ? "center-video" : "side-video"} style={!showVideo ? { visibility: "hidden" } : null} />
             {!showVideo ? <>
                 <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} />
                 {socketRef.current ? <Controls formState={false} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={false} roomID={props.match.params.roomID} /> : null}

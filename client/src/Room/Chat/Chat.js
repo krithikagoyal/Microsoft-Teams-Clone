@@ -39,8 +39,8 @@ function Chat(props) {
                 Object.keys(messagesdb.val()).map(id => {
                     messagessDB.push(messagesdb.val()[id])
                 })
+                addMessage(messagessDB)
             }
-            addMessage(messagessDB)
             if (ref.current) { scrollToBottom(); }
         })
     }, []);

@@ -48,8 +48,6 @@ function CalenderApi(props) {
             emails.push({ 'email': email });
         });
 
-        firedb.child("events").child(props.link).set({ start: props.start, end: props.end });
-        console.log(props.link);
         description = props.description;
 
     }, [props.attendees, props.description])
@@ -118,6 +116,7 @@ function CalenderApi(props) {
      */
     let history = useHistory();
     function appendPre(message) {
+        firedb.child("events").child(props.link).set({ start: props.start, end: props.end });
         history.push('/eventcreated', { data: message });
     }
 

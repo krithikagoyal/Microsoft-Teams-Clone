@@ -51,9 +51,9 @@ function Controls(props) {
         <>
             <div className={props.formState ? "controls-form" : "controls"}>
                 {props.formState ? null : <><ImCopy data-tip="Copy joining info" onClick={copylink} className="control" id="copy" /><ReactTooltip /></>}
-                {videoOn ? <IoVideocam data-tip="Turn off camera" onClick={switchVideo} className="control" /> :
+                {!props.showVideo ? null : videoOn ? <IoVideocam data-tip="Turn off camera" onClick={switchVideo} className="control" /> :
                     <IoVideocamOff data-tip="Turn on camera" onClick={switchVideo} className="control" />}
-                {audioOn ? <BsMicFill data-tip="Turn off microphone" onClick={switchAudio} className="control" /> :
+                {!props.showVideo ? null : audioOn ? <BsMicFill data-tip="Turn off microphone" onClick={switchAudio} className="control" /> :
                     <BsMicMuteFill data-tip="Turn on microphone" onClick={switchAudio} className="control" />}
                 {props.formState || !props.showVideo ? null : <><BiMessageRoundedDetail data-tip="Chat with everyone" onClick={visibility} className={showChat ? "control show-chat" : "control"} /><ReactTooltip /></>}
                 {props.formState ? null : <Navbar socketRef={props.socketRef} username={props.myUsername} chat={props.showVideo ? showChat : true} roomID={props.roomID} />}

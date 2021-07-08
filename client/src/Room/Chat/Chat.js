@@ -47,10 +47,12 @@ function Chat(props) {
     useEffect(() => {
 
         props.socketRef.current.on('receive message', payload => {
-            firedb.child(window.location.href).push({ senderId: payload.username, text: payload.message });
-            addMessage([...messages, { senderId: payload.username, text: payload.message }]);
-            scrollToBottom();
-            if (props.chat === false) { newMessageNotification(payload); }
+            if (props.roomID === payload.roomID) {
+                addMessage([...messages, { senderId: payload.username, text: payload.message }]);
+                scrollToBottom();
+                console.log(messages);
+                if (props.chat === false) { newMessageNotification(payload); }
+            }
         });
 
         return () => {
@@ -80,7 +82,7 @@ function Chat(props) {
                 </div>
             </div>
             <ToastContainer className="new-message" />
-            <SendMessageForm socketRef={props.socketRef} username={props.username} />
+            <SendMessageForm socketRef={props.socketRef} username={props.username} roomID={props.roomID} />
         </div>
     )
 }

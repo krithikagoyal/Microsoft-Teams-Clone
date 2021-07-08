@@ -5,6 +5,8 @@ import InputName from '../InputName/InputName'
 import Videos from '../Videos/Videos'
 import Controls from '../Controls/Controls'
 import './Home.css';
+import MeetingStatus from "../Videos/MeetingStatus";
+import { firedb } from '../../authentication/firebase'
 
 function Home(props) {
     const [peers, setPeers] = useState([]);
@@ -15,6 +17,9 @@ function Home(props) {
     const peersRef = useRef([]);
     const myUsernameRef = useRef();
     const roomID = props.match.params.roomID;
+    const [startTime, initialiseStartTime] = useState(null);
+    const [endTime, initialiseEndTime] = useState(null);
+    const [showVideo, changeVideoState] = useState(false);
 
     useEffect(() => {
         socketRef.current = io.connect("/");
@@ -69,6 +74,18 @@ function Home(props) {
                 setPeers(newPeers);
             })
         })
+
+        firedb.child("events").child(window.location.href).on("value", time => {
+            if (time.val() != null) {
+                let starttime = time.val().start;
+                let endtime = time.val().end;
+                starttime = new Date(starttime);
+                endtime = new Date(endtime);
+                initialiseStartTime(starttime.toLocaleString());
+                initialiseEndTime(endtime.toLocaleString());
+            }
+        })
+
     }, []);
 
     function createPeer(userToSignal, callerID, stream) {
@@ -105,7 +122,6 @@ function Home(props) {
     function hideForm() {
         setState(false);
         myUsernameRef.current = myUsername;
-        socketRef.current.emit("join room", { roomID, myUsername });
     }
 
     function leaveRoom() {
@@ -113,12 +129,18 @@ function Home(props) {
         props.history.push("/");
     }
 
+    function changeStatus() {
+        changeVideoState(!showVideo);
+        socketRef.current.emit("join room", { roomID, myUsername });
+    }
+
+
     return (
         <>
-            <video muted ref={userVideo} autoPlay playsInline className={formState ? "center-video" : "side-video"}/>
+            <video muted ref={userVideo} autoPlay playsInline className={formState ? "center-video" : "side-video"} />
             {formState ? <InputName hideForm={hideForm} changeName={changeName} /> :
-                <Videos peers={peers} />}
-            <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={myUsername} />
+                showVideo ? <Videos peers={peers} /> : <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} />}
+            <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={myUsername} showVideo={showVideo} roomID={props.match.params.roomID} />
         </>
     );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { gapi } from 'gapi-script';
 import { useHistory } from "react-router-dom";
+import { firedb } from '../../authentication/firebase';
 
 function CalenderApi(props) {
 
@@ -47,6 +48,8 @@ function CalenderApi(props) {
             emails.push({ 'email': email });
         });
 
+        firedb.child("events").child(props.link).set({ start: props.start, end: props.end });
+        console.log(props.link);
         description = props.description;
 
     }, [props.attendees, props.description])
@@ -123,6 +126,7 @@ function CalenderApi(props) {
     // Change the scope to 'https://www.googleapis.com/auth/calendar' and delete any
     // stored credentials.
     function createEvent() {
+
         var event = {
             'summary': description,
             'location': 'online',

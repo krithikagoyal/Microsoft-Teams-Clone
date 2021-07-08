@@ -1,0 +1,16 @@
+.meeting-status {
+    position: absolute;
+    color: #fff;
+    background-color: #242424;
+    margin-top: 15vh;
+    margin-left: 5vw;
+}
+
+.join-meeting-room {
+    color: #fff;
+    background-color: #464775;
+    border-radius: 10px;
+    border-width: 0;
+    height: 7vh;
+    width: 7vw;
+}

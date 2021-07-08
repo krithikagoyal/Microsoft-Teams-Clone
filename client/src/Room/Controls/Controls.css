@@ -1,6 +1,6 @@
 div.controls {
     position: absolute;
-    margin-top: 90vh;
+    margin-top: 89vh;
     padding-top: 0;
     display: flex;
     z-index: 20;
@@ -44,4 +44,10 @@ div.controls-form {
     height: 0vh;
     position: absolute;
     margin-top: 99vh;
+}
+
+.controls-not-video {
+    position: absolute;
+    margin-top: 68vh;
+    margin-left: 36.5%;
 }

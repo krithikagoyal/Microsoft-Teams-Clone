@@ -51,7 +51,7 @@ io.on('connection', socket => {
     });
 
     socket.on('send message', payload => {
-        io.emit('receive message', { username: payload.username, message: payload.message });
+        io.emit('receive message', { username: payload.username, message: payload.message, roomID: payload.roomID });
     });
 
 });

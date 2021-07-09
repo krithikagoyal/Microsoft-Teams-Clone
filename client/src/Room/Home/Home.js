@@ -85,7 +85,7 @@ function Home(props) {
             })
         })
 
-        firedb.child("events").child(window.location.href).on("value", time => {
+        firedb.child("events").child(roomID).on("value", time => {
             if (time.val() != null) {
                 let starttime = time.val().start;
                 let endtime = time.val().end;
@@ -141,6 +141,9 @@ function Home(props) {
     }
 
     function changeStatus() {
+        if (showVideo) {
+            window.location.reload();
+        }
         changeVideoState(!showVideo);
     }
 

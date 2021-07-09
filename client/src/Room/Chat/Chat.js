@@ -33,7 +33,7 @@ function Chat(props) {
     }
 
     useEffect(() => {
-        firedb.child(window.location.href).on("value", messagesdb => {
+        firedb.child(props.roomID).on("value", messagesdb => {
             if (messagesdb.val() != null) {
                 var messagessDB = [];
                 Object.keys(messagesdb.val()).map(id => {

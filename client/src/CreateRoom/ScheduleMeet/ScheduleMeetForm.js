@@ -33,7 +33,7 @@ class AttendeesEmail extends React.Component {
         const { enddateTime } = this.state;
         const { timezone } = this.state;
         const id = uuid();
-        const link = `http://localhost:3000/room/${id}`;
+        const link = id;
         return (
             <div className="schedule-meet-form">
                 <h4 style={{ color: "#4b53bc" }}>Enter details of the event</h4>

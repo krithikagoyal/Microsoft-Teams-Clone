@@ -39,12 +39,17 @@ function Controls(props) {
         changeVisibility(!showChat);
     }
 
-    function copylink() {
-        var Url = document.getElementById("paste-box");
-        Url.value = window.location.href;
-        Url.focus();
-        Url.select();
-        document.execCommand("Copy");
+    function copylink(e) {
+        e.preventDefault();
+        var copyText = window.location.href;
+
+        document.addEventListener('copy', function (e) {
+            e.clipboardData.setData('text/plain', copyText);
+            e.preventDefault();
+        }, true);
+
+        document.execCommand('copy');
+        alert('copied text: ' + copyText);
     }
 
     return (
@@ -60,7 +65,6 @@ function Controls(props) {
                 {!props.showVideo ? null : <MdCallEnd onClick={props.videoFunc} className="control call-end" data-tip="Leave call" />}
                 <ReactTooltip />
             </div>
-            <textarea id="paste-box" rows="1" cols="1" className="control-copy"></textarea>
         </>
     )
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { v1 as uuid } from "uuid";
 import './CreateRoom.css';
 import { useAuth } from "../authentication/contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import collaborate from '../images/collaborate.png';
 
 const CreateRoom = (props) => {

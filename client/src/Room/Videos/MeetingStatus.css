@@ -30,3 +30,11 @@
 .chat-room-card {
     padding: 10% !important;
 }
+
+.anchor-link {
+    color: rgb(136, 136, 255);
+}
+
+.anchor-link:hover {
+    cursor: pointer;
+}

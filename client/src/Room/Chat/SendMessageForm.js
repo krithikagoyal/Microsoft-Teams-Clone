@@ -24,7 +24,7 @@ function SendMessageForm(props) {
         const roomID = props.roomID;
         props.socketRef.current.emit('send message', { username, message, roomID });
         setMessage("");
-        firedb.child(window.location.href).push({ senderId: username, text: message });
+        firedb.child(props.roomID).push({ senderId: username, text: message });
     }
 
     return (

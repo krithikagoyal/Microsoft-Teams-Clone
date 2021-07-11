@@ -7,11 +7,11 @@ html {
 }
 
 .center-video {
-    height: 40%;
+    height: 47%;
     width: auto;
     position: absolute;
-    margin-left: 23.3vw;
-    margin-top: 54vh;
+    margin-left: 20vw;
+    margin-top: 50vh;
     z-index: 10;
     padding: 0;
 }

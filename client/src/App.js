@@ -22,7 +22,7 @@ function App() {
           <Route path="/eventcreated" component={EventMessage} />
           <PrivateRoute path="/update-profile" component={UpdateProfile} />
           <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" render={(props) => <Login {...props} />} />
           <Route path="/forgot-password" component={ForgotPassword} />
         </Switch>
       </AuthProvider>

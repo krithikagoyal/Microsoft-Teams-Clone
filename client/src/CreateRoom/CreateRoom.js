@@ -19,7 +19,7 @@ const CreateRoom = (props) => {
             await logout()
             history.push("/login")
         } catch {
-            setError("Failed to log out")
+            setError("Failed to get the requested page")
         }
     }
 

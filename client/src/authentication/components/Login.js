@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import './Login.css'
 
-export default function Login() {
+export default function Login(props) {
   const emailRef = useRef()
   const passwordRef = useRef()
   const { login } = useAuth()
@@ -19,7 +19,11 @@ export default function Login() {
       setError("")
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
-      history.push("/")
+      if (props.location.state !== undefined) {
+        history.push(props.location.state.linkto)
+      } else {
+        history.push("/")
+      }
     } catch {
       setError("Failed to log in")
     }

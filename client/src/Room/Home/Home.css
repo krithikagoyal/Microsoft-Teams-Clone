@@ -10,8 +10,8 @@ html {
     height: 40%;
     width: auto;
     position: absolute;
-    margin-left: 37.5vw;
-    margin-top: 15vh;
+    margin-left: 23.3vw;
+    margin-top: 54vh;
     z-index: 10;
     padding: 0;
 }
@@ -28,5 +28,6 @@ html {
 .chat-room {
     width: 100vw;
     height: 100vh;
-    background-color: #dae2ee;
+    background-color: #242424/*#dae2ee*/
+    ;
 }

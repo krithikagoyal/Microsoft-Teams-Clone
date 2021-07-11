@@ -11,7 +11,6 @@ import { useAuth } from '../../authentication/contexts/AuthContext';
 
 function Home(props) {
     const [peers, setPeers] = useState([]); // for storing the stream, username etc for each peer
-    const [formState, setState] = useState(true); // for seeing the preview
     const socketRef = useRef();
     const userVideo = useRef(); // the current users video
     const peersRef = useRef([]); // for storing the peers data as ref
@@ -20,7 +19,7 @@ function Home(props) {
     const [startTime, initialiseStartTime] = useState(null); // start time if the meeting was scheduled
     const [endTime, initialiseEndTime] = useState(null); // end time if the meeting was scheduled
     const [showVideo, changeVideoState] = useState(false); // not to show the video while in chat room
-    const { currentUser, logout } = useAuth() // for logging out the user and getting other user data
+    const { currentUser } = useAuth() // for logging out the user and getting other user data
     const [currentUsername, changeUserName] = useState("");
 
     useEffect(() => {
@@ -139,13 +138,6 @@ function Home(props) {
         return peer;
     }
 
-    // to hide the preview if the user clicked on join meet
-    function hideForm() {
-        setState(false);
-        myUsernameRef.current = currentUsername;
-        socketRef.current.emit("join room", { roomID, currentUsername });
-    }
-
     // redirecting the user to home screen after leaving the room
     function leaveRoom() {
         socketRef.current.emit("user clicked leave meeting", socketRef.current.id);
@@ -156,21 +148,24 @@ function Home(props) {
     function changeStatus() {
         if (showVideo) {
             window.location.reload();
+        } else {
+            myUsernameRef.current = currentUsername;
+            socketRef.current.emit("join room", { roomID, currentUsername });
         }
         changeVideoState(!showVideo);
     }
 
-    
+
     return (
         <>
-            <video muted ref={userVideo} autoPlay playsInline className={formState && showVideo ? "center-video" : "side-video"} style={!showVideo ? { visibility: "hidden" } : null} />
+            <video muted ref={userVideo} autoPlay playsInline className={!showVideo ? "center-video" : "side-video"} />
             {!showVideo ? <div className="chat-room">
                 <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} leaveRoom={leaveRoom} />
-                {socketRef.current ? <Controls formState={false} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={false} roomID={props.match.params.roomID} /> : null}
+                {socketRef.current ? <Controls leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={false} roomID={props.match.params.roomID} /> : null}
             </div> :
                 <>
-                    {formState ? <JoinMeet hideForm={hideForm} /> : <Videos peers={peers} />}
-                    <Controls formState={formState} leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={true} roomID={props.match.params.roomID} videoFunc={changeStatus} />
+                    <Videos peers={peers} />
+                    <Controls leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={true} roomID={props.match.params.roomID} videoFunc={changeStatus} />
                 </>}
         </>
     );

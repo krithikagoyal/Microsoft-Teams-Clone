@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import JoinMeet from '../InputName/JoinMeet'
 import Videos from '../Videos/Videos'
 import Controls from '../Controls/Controls'
 import './Home.css';
-import MeetingStatus from "../Videos/MeetingStatus";
+import ChatRoom from "../Chat/ChatRoom";
 import { firedb } from '../../authentication/firebase'
 import { useAuth } from '../../authentication/contexts/AuthContext';
 
@@ -160,7 +159,7 @@ function Home(props) {
         <>
             <video muted ref={userVideo} autoPlay playsInline className={!showVideo ? "center-video" : "side-video"} />
             {!showVideo ? <div className="chat-room">
-                <MeetingStatus changeStatus={changeStatus} startTime={startTime} endTime={endTime} leaveRoom={leaveRoom} />
+                <ChatRoom changeStatus={changeStatus} startTime={startTime} endTime={endTime} leaveRoom={leaveRoom} />
                 {socketRef.current ? <Controls leaveRoom={leaveRoom} userVideo={userVideo} socketRef={socketRef} myUsername={currentUsername} showVideo={false} roomID={props.match.params.roomID} /> : null}
             </div> :
                 <>

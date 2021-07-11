@@ -1,9 +1,9 @@
 // its a new event or a scheduled event
 import React, { useState, useEffect } from 'react';
-import './MeetingStatus.css';
+import './ChatRoom.css';
 import { Card } from "react-bootstrap"
 
-function MeetingStatus(props) {
+function ChatRoom(props) {
     const [newEvent, changeEventState] = useState(true); // it was a new event or a scheduled event ?
 
     useEffect(() => {
@@ -44,4 +44,4 @@ function MeetingStatus(props) {
     )
 }
 
-export default MeetingStatus
+export default ChatRoom

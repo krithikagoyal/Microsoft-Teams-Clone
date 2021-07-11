@@ -21,8 +21,8 @@ function App() {
           <Route path="/schedulemeet" component={ScheduleMeetForm} />
           <Route path="/eventcreated" component={EventMessage} />
           <PrivateRoute path="/update-profile" component={UpdateProfile} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
+          <Route path="/signup" render={(props) => <Signup {...props} />} />
+          <Route path="/login" render={(props) => <Login {...props} />} />
           <Route path="/forgot-password" component={ForgotPassword} />
         </Switch>
       </AuthProvider>

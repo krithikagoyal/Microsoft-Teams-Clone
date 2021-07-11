@@ -20,6 +20,7 @@ class AttendeesEmail extends React.Component {
         };
     }
 
+    // check if the user clicked the "choose email" button or not.
     formSubmit = (event) => {
         event.preventDefault();
         this.setState({ authorise: true });

@@ -10,7 +10,7 @@ import ReactTooltip from 'react-tooltip';
 
 function Controls(props) {
 
-    const [showChat, changeVisibility] = useState(false);
+    const [showChat, changeVisibility] = useState(false); // true: user has opened up the chat, false: user hasn't opened up the chat
     const [videoOn, changeVideo] = useState(true);
     const [audioOn, changeAudio] = useState(true);
 
@@ -35,10 +35,12 @@ function Controls(props) {
         }
     }
 
+    // function when the user wants to close or open up the chat box
     function visibility() {
         changeVisibility(!showChat);
     }
 
+    // function to copy the link to clipboard if the user clicked on join-info button
     function copylink(e) {
         e.preventDefault();
         var copyText = window.location.href;

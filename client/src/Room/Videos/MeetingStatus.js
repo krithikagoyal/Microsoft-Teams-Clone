@@ -1,9 +1,10 @@
+// its a new event or a scheduled event
 import React, { useState, useEffect } from 'react';
 import './MeetingStatus.css';
 import { Card } from "react-bootstrap"
 
 function MeetingStatus(props) {
-    const [newEvent, changeEventState] = useState(true);
+    const [newEvent, changeEventState] = useState(true); // it was a new event or a scheduled event ?
 
     useEffect(() => {
         if (props.startTime) {
@@ -15,6 +16,7 @@ function MeetingStatus(props) {
         props.changeStatus();
     }
 
+    // copy the text to clipboard after clicking the link.
     function handlelinkClick(e) {
         e.preventDefault();
         var copyText = window.location.href;

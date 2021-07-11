@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom"
 import { firedb } from '../firebase';
 import './Login.css';
 
-export default function Signup() {
+export default function Signup(props) {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
@@ -28,7 +28,11 @@ export default function Signup() {
       await signup(emailRef.current.value, passwordRef.current.value)
       var newKey = (emailRef.current.value).replace('.', '')
       firedb.child("usernames").child(newKey).set(usernameRef.current.value)
-      history.push("/")
+      if (props.location.state !== undefined) {
+        history.push(props.location.state.linkto)
+      } else {
+        history.push("/")
+      }
     } catch {
       setError("Failed to create an account")
     }
@@ -64,7 +68,10 @@ export default function Signup() {
             </Button>
           </Form>
           <div className="w-100 text-center mt-2">
-            Already have an account? <Link to="/login">Log In</Link>
+            Already have an account? <Link to={{
+              pathname: "/login",
+              state: props.location.state !== undefined ? { linkto: props.location.state.linkto } : undefined
+            }}>Log In</Link>
           </div>
         </Card.Body>
       </Card>

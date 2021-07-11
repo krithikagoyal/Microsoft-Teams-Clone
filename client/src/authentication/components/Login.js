@@ -54,10 +54,13 @@ export default function Login(props) {
             <Link to="/forgot-password">Forgot Password?</Link>
           </div>
           <div className="w-100 text-center mt-">
-            Need an account? <Link to="/signup">Sign Up</Link>
+            Need an account? <Link to={{
+              pathname: "/signup",
+              state: props.location.state !== undefined ? { linkto: props.location.state.linkto } : undefined
+            }}>Sign Up</Link>
           </div>
         </Card.Body>
       </Card>
-    </div>
+    </div >
   )
 }

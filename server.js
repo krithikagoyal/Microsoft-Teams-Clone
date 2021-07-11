@@ -11,6 +11,7 @@ const users = {};
 
 const socketToRoom = {};
 
+// function to remove a user from the room
 function leaveRoom(socket, userId) {
     const roomID = socketToRoom[userId];
     let room = users[roomID];
@@ -51,12 +52,14 @@ io.on('connection', socket => {
         leaveRoom(socket, userId);
     });
 
+    // for broadcating the message sent by frontend
     socket.on('send message', payload => {
         io.emit('receive message', { username: payload.username, message: payload.message, roomID: payload.roomID });
     });
 
 });
 
+// used when the website is deployed
 if (process.env.PROD) {
     app.use(express.static(path.join(__dirname, './client/build')));
     app.get('*', (req, res) => {

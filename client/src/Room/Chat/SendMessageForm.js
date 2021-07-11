@@ -8,13 +8,14 @@ import { firedb } from '../../authentication/firebase';
 function SendMessageForm(props) {
 
     const [message, setMessage] = useState("");
-    const [emojiPickerState, openEmojiPicker] = useState(false);
+    const [emojiPickerState, openEmojiPicker] = useState(false); // to know if to show up the emoji box or not
 
     const onEmojiClick = (event, emojiObject) => {
-        setMessage(message + emojiObject.emoji);
+        setMessage(message + emojiObject.emoji); // adding emoji to the current message
     };
 
     function handleChange(e) {
+        // setting message to be what is typed by the user
         setMessage(e.target.value);
     }
 
@@ -22,8 +23,9 @@ function SendMessageForm(props) {
         e.preventDefault()
         const username = props.username;
         const roomID = props.roomID;
-        props.socketRef.current.emit('send message', { username, message, roomID });
+        props.socketRef.current.emit('send message', { username, message, roomID }); // sending the message to the server
         setMessage("");
+        // add the new message to database
         firedb.child(props.roomID).push({ senderId: username, text: message });
     }
 

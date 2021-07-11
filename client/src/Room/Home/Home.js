@@ -10,22 +10,23 @@ import { firedb } from '../../authentication/firebase'
 import { useAuth } from '../../authentication/contexts/AuthContext';
 
 function Home(props) {
-    const [peers, setPeers] = useState([]);
-    const [formState, setState] = useState(true);
+    const [peers, setPeers] = useState([]); // for storing the stream, username etc for each peer
+    const [formState, setState] = useState(true); // for seeing the preview
     const socketRef = useRef();
-    const userVideo = useRef();
-    const peersRef = useRef([]);
-    const myUsernameRef = useRef();
+    const userVideo = useRef(); // the current users video
+    const peersRef = useRef([]); // for storing the peers data as ref
+    const myUsernameRef = useRef(); // current users username as ref
     const roomID = props.match.params.roomID;
-    const [startTime, initialiseStartTime] = useState(null);
-    const [endTime, initialiseEndTime] = useState(null);
-    const [showVideo, changeVideoState] = useState(false);
-    const { currentUser, logout } = useAuth()
+    const [startTime, initialiseStartTime] = useState(null); // start time if the meeting was scheduled
+    const [endTime, initialiseEndTime] = useState(null); // end time if the meeting was scheduled
+    const [showVideo, changeVideoState] = useState(false); // not to show the video while in chat room
+    const { currentUser, logout } = useAuth() // for logging out the user and getting other user data
     const [currentUsername, changeUserName] = useState("");
 
     useEffect(() => {
         socketRef.current = io.connect("/");
 
+        // replacing the dot from the email because '.' is not allowed as the key in firebase database
         var key = (currentUser.email).replace('.', '')
         firedb.child("usernames").child(key).on("value", name => {
             changeUserName(name.val())
@@ -34,8 +35,9 @@ function Home(props) {
 
 
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
-            userVideo.current.srcObject = stream;
+            userVideo.current.srcObject = stream; // capturing the stream
 
+            // creating the peers array
             socketRef.current.on("all users", users => {
                 const newPeers = [];
                 users.forEach(user => {
@@ -54,6 +56,7 @@ function Home(props) {
                 setPeers(newPeers);
             })
 
+            // when a new user joins
             socketRef.current.on("user joined", payload => {
                 const peer = addPeer(payload.signal, payload.callerID, stream);
                 const newPeers = [...peersRef.current, {
@@ -67,11 +70,13 @@ function Home(props) {
                 setPeers(newPeers);
             });
 
+            // getting the socketid of the user joined through this event
             socketRef.current.on("receiving returned signal", payload => {
                 const item = peersRef.current.find(p => p.peerID === payload.id);
                 item.peer.signal(payload.signal);
             });
 
+            // when a user leaves the room
             socketRef.current.on("user left", id => {
                 const peerObj = peersRef.current.find(p => p.peerID === id);
                 const newPeers = peersRef.current.filter(p => p.peerID !== id);
@@ -85,6 +90,7 @@ function Home(props) {
             })
         })
 
+        // getting the start and end time if the event was scheduled
         firedb.child("events").child(roomID).on("value", time => {
             if (time.val() != null) {
                 let starttime = time.val().start;
@@ -98,6 +104,7 @@ function Home(props) {
 
     }, []);
 
+    // function to create a new peer when the user has currently joined
     function createPeer(userToSignal, callerID, stream) {
         const peer = new Peer({
             initiator: true,
@@ -105,6 +112,7 @@ function Home(props) {
             stream,
         });
 
+        // sending the stream of current user to others
         peer.on("signal", signal => {
             const username = myUsernameRef.current;
             socketRef.current.emit("sending signal", { userToSignal, callerID, username, signal })
@@ -113,6 +121,7 @@ function Home(props) {
         return peer;
     }
 
+    // function to add a new peer if the user was already in the room
     function addPeer(incomingSignal, callerID, stream) {
         const peer = new Peer({
             initiator: false,
@@ -120,6 +129,7 @@ function Home(props) {
             stream,
         })
 
+        // sending the signal to the server to get in return the socketid for the user
         peer.on("signal", signal => {
             socketRef.current.emit("returning signal", { signal, callerID })
         })
@@ -129,17 +139,20 @@ function Home(props) {
         return peer;
     }
 
+    // to hide the preview if the user clicked on join meet
     function hideForm() {
         setState(false);
         myUsernameRef.current = currentUsername;
         socketRef.current.emit("join room", { roomID, currentUsername });
     }
 
+    // redirecting the user to home screen after leaving the room
     function leaveRoom() {
         socketRef.current.emit("user clicked leave meeting", socketRef.current.id);
         props.history.push("/");
     }
 
+    // redirecting user to the chat room after leaving the video call
     function changeStatus() {
         if (showVideo) {
             window.location.reload();
@@ -147,7 +160,7 @@ function Home(props) {
         changeVideoState(!showVideo);
     }
 
-
+    
     return (
         <>
             <video muted ref={userVideo} autoPlay playsInline className={formState && showVideo ? "center-video" : "side-video"} style={!showVideo ? { visibility: "hidden" } : null} />

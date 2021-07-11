@@ -33,6 +33,7 @@ function Chat(props) {
     }
 
     useEffect(() => {
+        // adding messages in the message array through database
         firedb.child(props.roomID).on("value", messagesdb => {
             if (messagesdb.val() != null) {
                 var messagessDB = [];
@@ -41,14 +42,16 @@ function Chat(props) {
                 })
                 addMessage(messagessDB)
             }
+            // scroll to bottom on a new message
             if (ref.current) { scrollToBottom(); }
         })
     }, []);
 
     useEffect(() => {
-
+        // show notification if a new message is received
         props.socketRef.current.on('receive message', payload => {
             if (props.roomID === payload.roomID) {
+                // show notification only if the user hasn't opened up the chat box
                 if (props.chat === false) { newMessageNotification(payload); }
                 scrollToBottom();
             }

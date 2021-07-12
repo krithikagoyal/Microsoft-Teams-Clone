@@ -16,14 +16,14 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Switch>
-          <PrivateRoute path="/" exact component={CreateRoom} />
+          <Route path="/" exact component={CreateRoom} />
           <PrivateRoute path="/room/:roomID" component={Home} />
-          <Route path="/schedulemeet" component={ScheduleMeetForm} />
+          <PrivateRoute path="/schedulemeet" component={ScheduleMeetForm} />
           <Route path="/eventcreated" component={EventMessage} />
           <PrivateRoute path="/update-profile" component={UpdateProfile} />
           <Route path="/signup" render={(props) => <Signup {...props} />} />
           <Route path="/login" render={(props) => <Login {...props} />} />
-          <Route path="/forgot-password" component={ForgotPassword} />
+          <PrivateRoute path="/forgot-password" component={ForgotPassword} />
         </Switch>
       </AuthProvider>
     </BrowserRouter>

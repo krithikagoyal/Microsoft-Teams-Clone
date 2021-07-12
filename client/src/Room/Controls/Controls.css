@@ -10,9 +10,9 @@ div.controls {
 div.controls-form {
     position: absolute;
     margin-bottom: 0vh;
-    margin-top: 25%;
+    margin-top: 21%;
     justify-content: center;
-    margin-left: 5%;
+    margin-left: 4%;
     display: flex;
     background-color: rgba(49, 42, 42, 0.507);
     z-index: 20;

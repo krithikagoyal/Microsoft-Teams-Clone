@@ -9,7 +9,7 @@ function ChatRoom(props) {
         if (props.startTime) {
             changeEventState(false);
         }
-    }, [])
+    }, [props.startTime])
 
     function handleClick(e) {
         props.changeStatus();
@@ -33,7 +33,7 @@ function ChatRoom(props) {
         <div className="meeting-status">
             <button onClick={handleClick} className="join-meeting-room">Join Video Call</button>
             <button onClick={props.leaveRoom} className="leave-meeting-room">Leave room</button>
-            {newEvent ? <p className="meet-time">Invite people with link <a onClick={handlelinkClick} className="anchor-link">{window.location.href}</a></p> : <p className="meet-time">Meeting will take place from {props.startTime} till {props.endTime}</p>}
+            {newEvent ? <p className="meet-time">Invite people with link <a onClick={handlelinkClick} className="anchor-link">{window.location.href}</a></p> : <p className="meet-time">Meeting time: {props.startTime} till {props.endTime}</p>}
         </div>
     )
 }

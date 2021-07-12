@@ -41,6 +41,11 @@ const CreateRoom = (props) => {
         props.history.push(`/schedulemeet`);
     }
 
+    function formSubmit(e) {
+        e.preventDefault();
+        props.history.push(`/room/${room}`)
+    }
+
     return (
         <div className="create-room">
             <div className="image-side">
@@ -49,7 +54,7 @@ const CreateRoom = (props) => {
             </div>
             <div className="image-left">
                 <h1 className="homeHeading">Welcome to Teams</h1>
-                <form onSubmit={() => props.history.push(`/room/${room}`)}>
+                <form onSubmit={formSubmit} type="submit">
                     <input onChange={handleChange}
                         value={room}
                         type="text"

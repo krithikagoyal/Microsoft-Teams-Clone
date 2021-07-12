@@ -63,7 +63,7 @@ function Controls(props) {
                 {audioOn ? <BsMicFill data-tip="Turn off microphone" onClick={switchAudio} className="control" /> :
                     <BsMicMuteFill data-tip="Turn on microphone" onClick={switchAudio} className="control" />}
                 {<><BiMessageRoundedDetail data-tip="Chat with everyone" onClick={visibility} className={showChat || !props.showVideo ? "control show-chat" : "control"} /><ReactTooltip /></>}
-                <Navbar socketRef={props.socketRef} username={props.myUsername} chat={props.showVideo ? showChat : true} roomID={props.roomID} />
+                <Navbar showVideo={props.showVideo} socketRef={props.socketRef} username={props.myUsername} chat={props.showVideo ? showChat : true} roomID={props.roomID} />
                 {!props.showVideo ? null : <MdCallEnd onClick={props.videoFunc} className="control call-end" data-tip="Leave call" />}
                 <ReactTooltip />
             </div>

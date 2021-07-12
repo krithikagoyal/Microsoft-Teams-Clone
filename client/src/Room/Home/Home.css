@@ -10,8 +10,8 @@ html {
     height: 47%;
     width: auto;
     position: absolute;
-    margin-left: 20vw;
-    margin-top: 50vh;
+    margin-left: 0vw;
+    margin-top: 10vh;
     z-index: 10;
     padding: 0;
 }

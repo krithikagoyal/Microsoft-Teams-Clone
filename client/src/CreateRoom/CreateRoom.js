@@ -8,7 +8,6 @@ import collaborate from '../images/collaborate.png';
 const CreateRoom = (props) => {
 
     const [room, setRoom] = useState("");
-    const history = useHistory()
     const { currentUser, logout } = useAuth();
     const [error, setError] = useState("");
 
@@ -17,10 +16,14 @@ const CreateRoom = (props) => {
 
         try {
             await logout()
-            history.push("/login")
         } catch {
             setError("Failed to get the requested page")
         }
+    }
+
+    function handleLogin(e) {
+        e.preventDefault();
+        props.history.push(`/login`);
     }
 
 
@@ -57,7 +60,7 @@ const CreateRoom = (props) => {
                 <br />
                 <button onClick={scheduleMeet} className="schedule-meet">Schedule a meet</button>
                 <br />
-                <button onClick={handleLogout} className="handle-logout">Log out</button>
+                {currentUser ? <button onClick={handleLogout} className="handle-logout">Log Out</button> : <button onClick={handleLogin} className="handle-logout">Log In</button>}
             </div>
         </div>
     );

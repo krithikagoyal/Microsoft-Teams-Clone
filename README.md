@@ -83,6 +83,7 @@ Microsoft-Engage-2021
 # Latest Deployed version
 The live link to the website can be found [here](https://krithikagoyalteams.herokuapp.com/).
 
-
+# Documentation
+https://docs.google.com/document/d/19QILopgaSbBpE0izNLL0495GPwGcQNLqCnjYMQ-KiMM/edit?usp=sharing
 
 

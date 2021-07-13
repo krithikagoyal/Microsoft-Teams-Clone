@@ -7,7 +7,6 @@ import EventMessage from './CreateRoom/ScheduleMeet/EventMessage';
 import Login from "./authentication/components/Login"
 import PrivateRoute from "./authentication/components/PrivateRoute"
 import ForgotPassword from "./authentication/components/ForgotPassword"
-import UpdateProfile from "./authentication/components/UpdateProfile"
 import Signup from "./authentication/components/Signup"
 import { AuthProvider } from "./authentication/contexts/AuthContext"
 
@@ -20,7 +19,6 @@ function App() {
           <PrivateRoute path="/room/:roomID" component={Home} />
           <PrivateRoute path="/schedulemeet" component={ScheduleMeetForm} />
           <Route path="/eventcreated" component={EventMessage} />
-          <PrivateRoute path="/update-profile" component={UpdateProfile} />
           <Route path="/signup" render={(props) => <Signup {...props} />} />
           <Route path="/login" render={(props) => <Login {...props} />} />
           <PrivateRoute path="/forgot-password" component={ForgotPassword} />

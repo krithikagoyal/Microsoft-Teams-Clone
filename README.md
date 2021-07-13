@@ -27,6 +27,59 @@ npm i
 yarn start
 ```
 
+# Directory Structure
+```
+Microsoft-Engage-2021
+|
+|-client
+    |-public
+        |
+        |-index.html
+    |-src
+        |
+        |-Authentication
+            |
+            |-components
+                |
+                |-ForgotPassword.js
+                |-Login.js
+                |-PrivateRoute.js
+                |-Signup.js
+            |-contexts
+                |
+                |-AuthContext.js
+            |-firebase.js
+        |-CreateRoom
+            |
+            |-ScheduleMeet
+                |
+                |-CalenderApi.js
+                |-EventMessage.js
+                |-ScheduleMeetForm.js
+                |-TimeZoneSelect.js
+            |-CreateRoom.js
+        |-Room
+            |
+            |-Chat
+                |
+                |-Chat.js
+                |-ChatRoom.js
+                |-Navbar.js
+                |-SendMessageForm.js
+            |-Controls
+                |
+                |-Controls.js
+            |-Home
+                |
+                |-Home.js
+            |-Videos
+                |-Videos.js
+        |-App.js
+        |-index.js
+|-docs
+|-server.js
+```
+
 # Latest Deployed version
 The live link to the website can be found [here](https://krithikagoyalteams.herokuapp.com/).
 

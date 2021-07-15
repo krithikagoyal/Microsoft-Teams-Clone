@@ -87,4 +87,4 @@ The live link to the website can be found [here](https://krithikagoyalteams.hero
 https://youtu.be/sBbfN7Yz3fI
 
 # Documentation
-https://docs.google.com/document/d/1X_uYif86FqyCMhYtfSmx_Dlk32Llk8XOz32ac2srz6U/edit?usp=sharing
+https://drive.google.com/file/d/1OiZ2YFAeJSESGxbHSHxJ7t520hGRyMyV/view?usp=sharing
